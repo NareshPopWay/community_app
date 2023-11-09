@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
@@ -6,10 +5,47 @@ import 'package:community_app/common/api_constant.dart';
 import 'package:community_app/common/custom_exceptions.dart';
 import 'package:community_app/common/ui.dart';
 import 'package:community_app/models/member_model.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 
 class APIProvider {
 
+  Future<bool> getToken() async {
+    var responseJson;
+    String token = "";
+    try {
+      log(BaseUrl.login);
+      final response = await http.post(
+        Uri.parse(
+          BaseUrl.login,
+        ),
+        body: jsonEncode({
+          "SamajID": 1,
+          "userTypeId": 4,
+          "Username": "Visitor",
+          "Password": "Visitor",
+        }),
+        headers: {"Content-Type": "application/x-www-form-urlencoded"},
+      );
+      responseJson = _response(response);
+
+      if (response.statusCode == 200) {
+
+        token = responseJson['token'].toString();
+        int STC = 1;
+        GetStorage().write(BaseUrl.Authorizetoken, token);
+        GetStorage().write('STC', STC);
+        print(token);
+        return true;
+
+      } else {
+        return false;
+      }
+    } catch (e) {
+      print("error.... getToken ...$e");
+    }
+    return false;
+  }
 
   Future<List<MemberModel>> getMember(String apiToken) async {
     var responseJson;
