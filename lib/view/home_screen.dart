@@ -5,7 +5,7 @@ import 'package:community_app/common/themeService.dart';
 import 'package:community_app/controllers/auth_controller.dart';
 import 'package:community_app/view/about_us_screen.dart';
 import 'package:community_app/view/committee_screen.dart';
-import 'package:community_app/view/member_screen.dart';
+import 'package:community_app/view/Member/member_screen.dart';
 import 'package:community_app/view/notification_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
@@ -20,7 +20,7 @@ class HomeScreen extends GetView<AuthController> {
     return Obx(() =>Scaffold(
       body: IndexedStack(
         index: controller.selectedIndex.value,
-        children: const [
+        children:  [
              MemberScreen(),
              CommitteeScreen(),
              NotificationScreen(),

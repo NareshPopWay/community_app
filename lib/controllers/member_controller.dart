@@ -14,6 +14,17 @@ class MemberController extends GetxController {
   RxString token="".obs;
   RxList<MemberModel> memberList = <MemberModel>[].obs;
 
+  final key = new GlobalKey<FormState>();
+
+  Rx<TextEditingController> memberNameController = TextEditingController().obs;
+  Rx<TextEditingController> addressController = TextEditingController().obs;
+  Rx<TextEditingController> areaController = TextEditingController().obs;
+  Rx<TextEditingController> villageController = TextEditingController().obs;
+  Rx<TextEditingController> sakheController = TextEditingController().obs;
+  Rx<TextEditingController> mobileNumberController = TextEditingController().obs;
+  Rx<TextEditingController> usernameController = TextEditingController().obs;
+  Rx<TextEditingController> passwordController = TextEditingController().obs;
+
   @override
   void onInit() async {
     super.onInit();
@@ -59,5 +70,7 @@ class MemberController extends GetxController {
       isLoading.value = false;
     }
   }
+
+
 
 }

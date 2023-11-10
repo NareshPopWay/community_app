@@ -9,9 +9,9 @@ class NotificationScreen extends GetView<NotificationController> {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() =>Scaffold(
+    return Scaffold(
         body: Text('Notification')
-    ));
+    );
   }
 }
 

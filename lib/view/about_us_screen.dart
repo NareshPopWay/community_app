@@ -8,9 +8,9 @@ class AboutUsScreen extends GetView<AboutUsController> {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() =>Scaffold(
+    return Scaffold(
         body: Text('AboutUs')
-    ));
+    );
   }
 }
 
