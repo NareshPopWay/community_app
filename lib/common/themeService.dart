@@ -15,6 +15,7 @@ class ThemeService extends GetxService {
   static const Color black = Colors.black;
   static const Color white = Colors.white;
   static const Color backgroundColor = Color(0xFFF5F7FB);
+  static const Color Scolor = Color(0xFFFFAB40);
 
   static const MaterialColor primaryColor = MaterialColor(
     0xFFF58634,

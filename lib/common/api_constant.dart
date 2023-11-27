@@ -15,7 +15,7 @@ class BaseUrl{
   static String GetMember = "${comman_string}FamilyMemberView/GetServerViewList"; // ?page=1&pageCount=1
   static String AddMember = "${comman_string}Member/Save";
   static String SaveMemberImage = "${comman_string}Member/SaveImage";
-  static String NotificationTtype = "${comman_string}Comman/GetList?Id=1";
+  static String NotificationType = "${comman_string}Comman/GetList?Id=1";
   static String AddNotification = "${comman_string}Notification/Save";
   static String GetGoodNews = "${comman_string}Notification/GetGoodNews";
   static String GetSadNews = "${comman_string}Notification/GetSadNews";
@@ -28,14 +28,14 @@ class BaseUrl{
   static String SaveFamilyMemberImage = "${comman_string}FamilyMember/SaveImage";
   static String DeleteMember = "${comman_string}FamilyMember/Delete?ID=";
   static String AddToken = "${comman_string}Token/Save";
-  static String Donnertype = "${comman_string}Comman/GetList?Id=3";
+  static String donnerType = "${comman_string}Comman/GetList?Id=3";
   static String AddDonner = "${comman_string}Donation/Save";
   static String SaveDonnerImage = "${comman_string}Donation/SaveImage";
   static String GetOtherDonation = "${comman_string}Donation/OtherDonation";
   static String GetMoneyDonation = "${comman_string}Donation/MoneyDonation";
   static String GetBloodDonation = "${comman_string}Donation/BloodDonation";
   static String GetOrganDonation = "${comman_string}Donation/OrganDonation";
-  static String Requesttype = "${comman_string}Comman/GetList?Id=2";
+  static String requestType = "${comman_string}Comman/GetList?Id=2";
   static String AddRequest = "${comman_string}Request/Save";
   static String SaveRequestImage = "${comman_string}Request/SaveImage";
   static String GetOtherRequest = "${comman_string}Request/OtherHelp";
@@ -55,7 +55,7 @@ class BaseUrl{
   static String AddMarriage = "${comman_string}Marriage/Save";
   static String GetFeedback = "${comman_string}Feedback/GetViewList";
   static String AddFeedback = "${comman_string}Feedback/Save";
-  static String SaveMarksheetImage = "${comman_string}Marksheet/SaveImage";
-  static String GetMarksheet = "${comman_string}Marksheet/GetViewList";
-  static String AddMarksheet = "${comman_string}Marksheet/Save";
+  static String SaveMarkSheetImage = "${comman_string}Marksheet/SaveImage";
+  static String GetMarkSheet = "${comman_string}Marksheet/GetViewList";
+  static String AddMarkSheet = "${comman_string}Marksheet/Save";
 }

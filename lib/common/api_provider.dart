@@ -7,6 +7,7 @@ import 'package:community_app/common/themeService.dart';
 import 'package:community_app/common/ui.dart';
 import 'package:community_app/models/PMemberModel.dart';
 import 'package:community_app/models/member_model.dart';
+import 'package:community_app/models/notification_model.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_storage/get_storage.dart';
@@ -111,6 +112,35 @@ class APIProvider {
           textColor: Colors.white,
           fontSize: 16.0);
     }
+  }
+
+
+  Future<List<NotificationModel>> getGoodNews(String apiToken) async {
+    var responseJson;
+    List<NotificationModel> list = [];
+    try {
+      log(BaseUrl.GetGoodNews);
+
+      final response = await http.get(
+          Uri.parse(
+            BaseUrl.GetGoodNews,
+          ),
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer $apiToken",
+          });
+      responseJson = json.decode(response.body);
+      log(response.body);
+
+      for (int i = 0; i < responseJson['value'].length; i++) {
+        list.add(NotificationModel.fromJson(responseJson['value'][i]));
+      }
+    } on SocketException {
+      Ui.ErrorSnackBar(title: 'No Internet connection');
+    } catch (e) {
+      print("error ...getGoodNews ...... $e");
+    }
+    return list;
   }
 
   static dynamic _response(http.Response response) {

@@ -37,6 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   get: ^4.6.5
   get_storage: ^2.1.1
+  flutter_staggered_animations: ^1.1.1
   http: ^0.13.5
   intl: ^0.17.0
   image_picker: ^1.0.4
