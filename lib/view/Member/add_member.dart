@@ -1,6 +1,6 @@
 import 'package:community_app/common/api_provider.dart';
 import 'package:community_app/common/themeService.dart';
-import 'package:community_app/controllers/member_controller.dart';
+import 'package:community_app/controllers/MemberController/member_controller.dart';
 import 'package:community_app/models/PMemberModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

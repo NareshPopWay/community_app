@@ -1,19 +1,27 @@
+import 'package:community_app/binders/Notification_Binder/add_notification_binder.dart';
 import 'package:community_app/binders/Notification_Binder/edu_news_binder.dart';
 import 'package:community_app/binders/Notification_Binder/good_news_binder.dart';
 import 'package:community_app/binders/Notification_Binder/gov_news_binder.dart';
+import 'package:community_app/binders/Notification_Binder/member_detail_binder.dart';
 import 'package:community_app/binders/Notification_Binder/ohter_news_binder.dart';
 import 'package:community_app/binders/Notification_Binder/sad_news_binder.dart';
 import 'package:community_app/binders/add_member_binder.dart';
 import 'package:community_app/binders/auth_binder.dart';
 import 'package:community_app/common/routes/app_routes.dart';
 import 'package:community_app/common/widget/auth_widget.dart';
+import 'package:community_app/controllers/MemberController/member_detail_controller.dart';
 import 'package:community_app/view/Member/add_member.dart';
+import 'package:community_app/view/Member/member_detail_screen.dart';
+import 'package:community_app/view/Notification/add_notification.dart';
 import 'package:community_app/view/Notification/education_news_screen.dart';
 import 'package:community_app/view/Notification/good_news_screen.dart';
 import 'package:community_app/view/Notification/gov_news_screen.dart';
 import 'package:community_app/view/Notification/other_news_screen.dart';
 import 'package:community_app/view/Notification/sad_news_screen.dart';
 import 'package:get/get.dart';
+
+import '../../binders/Notification_Binder/notification_details_binder.dart';
+import '../../view/Notification/notification_detail_screen.dart';
 
 class PageRoutes {
   static const initial = Routes.root;
@@ -53,6 +61,23 @@ class PageRoutes {
       name: Routes.otherNews,
       page: () => OtherNewsScreen(),
       binding: OtherNewsBinder(),
+     ),
+    GetPage(
+      name: Routes.notificationDetails,
+      page: () => NotificationDetailScreen(),
+      binding: NotificationDetailsBinder(),
+     ),
+
+   GetPage(
+      name: Routes.memberDetails,
+      page: () => MemberDetailsScreen(),
+      binding: MemberDetailsBinder(),
+     ),
+
+   GetPage(
+      name: Routes.addNotification,
+      page: () => AddNotificationScreen(),
+      binding: AddNotificationBinder(),
      ),
 
   ];

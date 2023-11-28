@@ -49,6 +49,7 @@ dependencies:
   pull_to_refresh: ^2.0.0
   awesome_dialog:
   fluttertoast: ^8.2.2
+  file_picker: ^5.3.2
   google_nav_bar: ^5.0.6
   flutter_feather_icons:
   flutter_app_name:

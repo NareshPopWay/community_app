@@ -44,16 +44,17 @@ class GoodNewsController extends GetxController {
     if (goodNewsResponse.isNotEmpty) {
       goodNewsList.addAll(goodNewsResponse);
       isLoading.value = false;
-    } else {
-      Fluttertoast.showToast(
-          msg: "Something went wrong..",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.SNACKBAR,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.amberAccent,
-          textColor: Colors.black,
-          fontSize: 16.0);
+    }
+    else {
       isLoading.value = false;
+      // Fluttertoast.showToast(
+      //     msg: "Something went wrong..",
+      //     toastLength: Toast.LENGTH_SHORT,
+      //     gravity: ToastGravity.SNACKBAR,
+      //     timeInSecForIosWeb: 1,
+      //     backgroundColor: Colors.amberAccent,
+      //     textColor: Colors.black,
+      //     fontSize: 16.0);
     }
   }
 }

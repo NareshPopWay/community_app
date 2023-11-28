@@ -59,14 +59,14 @@ class MemberController extends GetxController {
       memberList.addAll(memberResponse);
       isLoading.value = false;
     } else {
-      Fluttertoast.showToast(
-          msg: "Something went wrong..",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.SNACKBAR,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.amberAccent,
-          textColor: Colors.black,
-          fontSize: 16.0);
+      // Fluttertoast.showToast(
+      //     msg: "Something went wrong..",
+      //     toastLength: Toast.LENGTH_SHORT,
+      //     gravity: ToastGravity.SNACKBAR,
+      //     timeInSecForIosWeb: 1,
+      //     backgroundColor: Colors.amberAccent,
+      //     textColor: Colors.black,
+      //     fontSize: 16.0);
       isLoading.value = false;
     }
   }

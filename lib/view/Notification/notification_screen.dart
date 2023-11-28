@@ -11,6 +11,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
+import '../../common/routes/app_routes.dart';
+
 class NotificationScreen extends GetView<NotificationController> {
    NotificationScreen({Key? key}) : super(key: key);
 
@@ -30,20 +32,17 @@ class NotificationScreen extends GetView<NotificationController> {
         ),
         centerTitle: true,
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   backgroundColor: ThemeService.primaryColor,
-      //   onPressed: () {
-      //
-      //   },
-      //   child: Icon(MdiIcons.notebookPlus, color: Colors.white),
-      //   // child: Text(
-      //   //   "Add Memeber",
-      //   //   style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
-      //   //   textAlign: TextAlign.center,
-      //   // ),
-      // ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: ThemeService.primaryColor,
+        onPressed: () {
+          Get.toNamed(Routes.addNotification);
+        },
+        child: Icon(MdiIcons.notebookPlus, color: Colors.white),
+      ),
       body: AnimationLimiter(
         child: ListView.builder(
+            shrinkWrap: true,
+            physics: const BouncingScrollPhysics(parent: BouncingScrollPhysics()),
             itemCount: controller.item.length,
             padding: EdgeInsets.only(top: Get.height*0.02),
             itemBuilder: (context, index){
@@ -125,7 +124,7 @@ class NotificationScreen extends GetView<NotificationController> {
               alignment: Alignment.centerRight,
               child: GestureDetector(
                 onTap: (){
-                  // Get.to(HomeScreen());
+                  Get.toNamed(controller.screens[index]);
                   // Navigator.push(context,MaterialPageRoute(builder: (context)=>menuScreens[index]));
                   //Navigator.push(context, PageTransition(type: PageTransitionType.leftToRightWithFade,duration:const Duration(milliseconds: 400),reverseDuration:const Duration(milliseconds: 400) , child: menuScreens[index]));
                 },

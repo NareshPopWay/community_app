@@ -6,6 +6,7 @@ import 'package:community_app/common/custom_exceptions.dart';
 import 'package:community_app/common/themeService.dart';
 import 'package:community_app/common/ui.dart';
 import 'package:community_app/models/PMemberModel.dart';
+import 'package:community_app/models/field_item_value_model.dart';
 import 'package:community_app/models/member_model.dart';
 import 'package:community_app/models/notification_model.dart';
 import 'package:flutter/material.dart';
@@ -132,8 +133,8 @@ class APIProvider {
       responseJson = json.decode(response.body);
       log(response.body);
 
-      for (int i = 0; i < responseJson['value'].length; i++) {
-        list.add(NotificationModel.fromJson(responseJson['value'][i]));
+      for (int i = 0; i < responseJson.length; i++) {
+        list.add(NotificationModel.fromJson(responseJson[i]));
       }
     } on SocketException {
       Ui.ErrorSnackBar(title: 'No Internet connection');
@@ -143,6 +144,144 @@ class APIProvider {
     return list;
   }
 
+  Future<List<NotificationModel>> getSadNews(String apiToken) async {
+    var responseJson;
+    List<NotificationModel> list = [];
+    try {
+      log(BaseUrl.GetSadNews);
+
+      final response = await http.get(
+          Uri.parse(
+            BaseUrl.GetSadNews,
+          ),
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer $apiToken",
+          });
+      responseJson = json.decode(response.body);
+      log(response.body);
+
+      for (int i = 0; i < responseJson.length; i++) {
+        list.add(NotificationModel.fromJson(responseJson[i]));
+      }
+    } on SocketException {
+      Ui.ErrorSnackBar(title: 'No Internet connection');
+    } catch (e) {
+      print("error ...getSadNews ...... $e");
+    }
+    return list;
+  }
+
+  Future<List<NotificationModel>> getEduNews(String apiToken) async {
+    var responseJson;
+    List<NotificationModel> list = [];
+    try {
+      log(BaseUrl.GetEducationNews);
+
+      final response = await http.get(
+          Uri.parse(
+            BaseUrl.GetEducationNews,
+          ),
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer $apiToken",
+          });
+      responseJson = json.decode(response.body);
+      log(response.body);
+
+      for (int i = 0; i < responseJson.length; i++) {
+        list.add(NotificationModel.fromJson(responseJson[i]));
+      }
+    } on SocketException {
+      Ui.ErrorSnackBar(title: 'No Internet connection');
+    } catch (e) {
+      print("error ...GetEducationNews ...... $e");
+    }
+    return list;
+  }
+
+  Future<List<NotificationModel>> getGovNews(String apiToken) async {
+    var responseJson;
+    List<NotificationModel> list = [];
+    try {
+      log(BaseUrl.GetGovNews);
+
+      final response = await http.get(
+          Uri.parse(
+            BaseUrl.GetGovNews,
+          ),
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer $apiToken",
+          });
+      responseJson = json.decode(response.body);
+      log(response.body);
+
+      for (int i = 0; i < responseJson.length; i++) {
+        list.add(NotificationModel.fromJson(responseJson[i]));
+      }
+    } on SocketException {
+      Ui.ErrorSnackBar(title: 'No Internet connection');
+    } catch (e) {
+      print("error ...GetGovNews ...... $e");
+    }
+    return list;
+  }
+
+  Future<List<NotificationModel>> getOtherNews(String apiToken) async {
+    var responseJson;
+    List<NotificationModel> list = [];
+    try {
+      log(BaseUrl.GetOtherNews);
+
+      final response = await http.get(
+          Uri.parse(
+            BaseUrl.GetOtherNews,
+          ),
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer $apiToken",
+          });
+      responseJson = json.decode(response.body);
+      log(response.body);
+
+      for (int i = 0; i < responseJson.length; i++) {
+        list.add(NotificationModel.fromJson(responseJson[i]));
+      }
+    } on SocketException {
+      Ui.ErrorSnackBar(title: 'No Internet connection');
+    } catch (e) {
+      print("error ...GetOtherNews ...... $e");
+    }
+    return list;
+  }
+
+
+  Future<List<FieldItemValueModel>> getAllType() async {
+    var responseJson;
+    List<FieldItemValueModel> list = [];
+    try {
+      log(BaseUrl.NotificationType);
+
+      final response = await http.get(
+          Uri.parse(
+            BaseUrl.NotificationType,
+          ),
+          headers: {
+            "Content-Type": "application/json",
+          });
+      responseJson = json.decode(response.body);
+      log(response.body);
+      for (int i = 0; i < responseJson.length; i++) {
+        list.add(FieldItemValueModel.fromJson(responseJson[i]));
+      }
+    } on SocketException {
+      Ui.ErrorSnackBar(title: 'No Internet connection');
+    } catch (e) {
+      print("error ...getAllType ...... $e");
+    }
+    return list;
+  }
   static dynamic _response(http.Response response) {
     switch (response.statusCode) {
       case 200:
@@ -171,3 +310,5 @@ class APIProvider {
     }
   }
 }
+
+

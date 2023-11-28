@@ -7,5 +7,8 @@ class Routes {
   static const eduNews = '/eduNews';
   static const govNews = '/govNews';
   static const otherNews = '/otherNews';
+  static const notificationDetails = '/newsDetails';
+  static const memberDetails = '/memberDetails';
+  static const addNotification = '/addNotification';
 
 }

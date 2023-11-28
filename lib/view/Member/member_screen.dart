@@ -4,7 +4,7 @@ import 'package:community_app/common/api_constant.dart';
 import 'package:community_app/common/routes/app_routes.dart';
 import 'package:community_app/common/spacing.dart';
 import 'package:community_app/common/themeService.dart';
-import 'package:community_app/controllers/member_controller.dart';
+import 'package:community_app/controllers/MemberController/member_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:get/get.dart';
@@ -66,14 +66,12 @@ class MemberScreen extends GetView<MemberController> {
           : ListView.builder(
           shrinkWrap: true,
           physics: const BouncingScrollPhysics(parent: BouncingScrollPhysics()),
-          padding: EdgeInsets.fromLTRB(0, AppSpacings.s20,0, 0),
+          padding: EdgeInsets.fromLTRB  (0, AppSpacings.s20,0, 0),
           itemCount: controller.memberList.length,
           itemBuilder: (context, index) {
             return InkWell(
               onTap: () {
-                // Navigator.of(context).push(MaterialPageRoute(
-                //     builder: (BuildContext context) =>
-                //         MemberDetail(snapshot.data![index])));
+                Get.toNamed(Routes.memberDetails,arguments:controller.memberList[index]);
               },
               child: Card(
                 shape: RoundedRectangleBorder(
@@ -81,7 +79,7 @@ class MemberScreen extends GetView<MemberController> {
                 ),
                 margin: EdgeInsets.fromLTRB(AppSpacings.s15, 0, AppSpacings.s15, AppSpacings.s25),
                 elevation: 5.5, // Change this
-                shadowColor: ThemeService.primaryColor,
+                // shadowColor: ThemeService.primaryColor,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
