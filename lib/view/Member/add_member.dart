@@ -29,6 +29,15 @@ class AddMemberScreen extends GetView<MemberController> {
           ),
         ),
         centerTitle: true,
+        leading: IconButton(
+            onPressed: (){
+              Get.back();
+            },
+            icon: Icon(
+              Icons.arrow_back_ios,
+              color: ThemeService.white,
+            )
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(

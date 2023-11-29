@@ -13,26 +13,26 @@ class CommitteeScreen extends GetView<ComumitteeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: ThemeService.primaryColor,
-          title: Text(
-            "Committee",
-            style: GoogleFonts.aBeeZee(
-              fontWeight: FontWeight.bold,
-              fontSize: 20,
-            ),
-          ),
-          centerTitle: true,
-          actions: <Widget>[
-            IconButton(
-              onPressed: () {
-                // Navigator.of(context).push(
-                //     new MaterialPageRoute(builder: (BuildContext context) => SearchPage()));
-              },
-              icon: Icon(FeatherIcons.search),
-            ),
-          ],
-        ),
+        // appBar: AppBar(
+        //   backgroundColor: ThemeService.primaryColor,
+        //   title: Text(
+        //     "Committee",
+        //     style: GoogleFonts.aBeeZee(
+        //       fontWeight: FontWeight.bold,
+        //       fontSize: 20,
+        //     ),
+        //   ),
+        //   centerTitle: true,
+        //   actions: <Widget>[
+        //     IconButton(
+        //       onPressed: () {
+        //         // Navigator.of(context).push(
+        //         //     new MaterialPageRoute(builder: (BuildContext context) => SearchPage()));
+        //       },
+        //       icon: Icon(FeatherIcons.search),
+        //     ),
+        //   ],
+        // ),
         body: ListView(
           shrinkWrap: true,
           physics: const BouncingScrollPhysics(parent: BouncingScrollPhysics()),

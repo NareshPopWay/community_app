@@ -2,10 +2,12 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 import 'package:community_app/common/api_constant.dart';
+import 'package:community_app/common/constant.dart';
 import 'package:community_app/common/custom_exceptions.dart';
 import 'package:community_app/common/themeService.dart';
 import 'package:community_app/common/ui.dart';
 import 'package:community_app/models/PMemberModel.dart';
+import 'package:community_app/models/family_member_model.dart';
 import 'package:community_app/models/field_item_value_model.dart';
 import 'package:community_app/models/member_model.dart';
 import 'package:community_app/models/notification_model.dart';
@@ -81,7 +83,19 @@ class APIProvider {
   }
 
   Future createMember(PMember members) async {
-
+    bool isInternet = await Constants.isInternetAvail();
+    if (!isInternet) {
+      Constants.ErrorSnackBar(message: "No Internet connection");
+      Fluttertoast.showToast(
+          msg: "No Internet connection",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.SNACKBAR,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.redAccent,
+          textColor: Colors.white,
+          fontSize: 16.0);
+      return;
+    }
     String token = GetStorage().read(BaseUrl.Authorizetoken).toString();
     final response = await http.post(
       Uri.parse(BaseUrl.AddMember),
@@ -282,33 +296,139 @@ class APIProvider {
     }
     return list;
   }
-  static dynamic _response(http.Response response) {
-    switch (response.statusCode) {
-      case 200:
-        var responseJson = json.decode(response.body.toString());
-        return responseJson;
-      case 201:
-        var responseJson = json.decode(response.body.toString());
-        return responseJson;
-      case 400:
-        throw BadRequestException(response.body.toString());
-      case 401:
-      case 403:
-        throw UnauthorisedException(response.body.toString());
-      case 500:
-        throw UnauthorisedException(response.body.toString());
-      default:
-        print('error : ${response.body}');
-        Ui.ErrorSnackBar(
-          title: 'Something Went Wrong!',
-          message: 'Error occured while Communication with Server with StatusCode : ${response.statusCode}. Try Again Later',
-        );
-        Ui.progressDialog(false);
-        throw FetchDataException(
-          'Error occured while Communication with Server with StatusCode : ${response.statusCode}. Try Again Later',
-        );
+
+  Future<bool> addNotification({
+    required String apiToken,
+    required String aboutNotification,
+    required String notificationType,
+    required String fileData
+  }) async{
+
+    try{
+
+      Map body= {
+        "aboutNotification": aboutNotification,
+        "notificationType": int.parse(notificationType),
+        "fileData": fileData,
+      };
+      log('$body');
+      final response = await http.post(
+        Uri.parse(BaseUrl.AddNotification),
+        headers: <String, String>{
+          "Content-Type": "application/json",
+          "Authorization": "Bearer $apiToken"
+        },
+        body: jsonEncode(
+            {
+              "aboutNotification": aboutNotification,
+              "notificationType": int.parse(notificationType),
+              "fileData": fileData,
+            }
+        ),
+      );
+      log('RESPONSE BODY: ${response.body}');
+      if (response.statusCode == 200) {
+        return true;
+      }else{
+        return false;
+      }
+    }catch (e) {
+      debugPrint("Error $e");
     }
+    return false;
   }
+
+  Future<String> saveImage({required String apiToken,required String imageFile}) async{
+    var responseJson = '';
+
+    var request = http.MultipartRequest(
+        "POST", Uri.parse(BaseUrl.SaveNotificationImage));
+    request.headers.addAll({
+      "Authorization": "Bearer $apiToken"
+    });
+    request.files.add(await http.MultipartFile.fromPath('imageFile', imageFile));
+
+    http.StreamedResponse response = await request.send();
+    if (response.statusCode == 200) {
+      responseJson = await response.stream.bytesToString();
+      log('RESPONSE BODY: ${responseJson}');
+      return responseJson.toString();
+    }
+    return responseJson.toString();
+  }
+
+  Future<List<FamilyMemberModel>> getFamilyMember(String apiToken) async {
+    var responseJson;
+    List<FamilyMemberModel> list = [];
+    try {
+      log(BaseUrl.GetFamilyMember);
+
+      final response = await http.get(
+          Uri.parse(
+            BaseUrl.GetFamilyMember,
+          ),
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer $apiToken",
+          });
+      responseJson = json.decode(response.body);
+      log(response.body);
+
+      for (int i = 0; i < responseJson.length; i++) {
+        list.add(FamilyMemberModel.fromJson(responseJson[i]));
+      }
+    } on SocketException {
+      Ui.ErrorSnackBar(title: 'No Internet connection');
+    } catch (e) {
+      print("error ...getFamilyMember ...... $e");
+    }
+    return list;
+  }
+
+
+  Future<bool> login({
+    required String Username,
+    required String Password,
+  }) async{
+   var responseJson;
+   String token = "";
+    try{
+      Map body= {
+        "SamajID": 1,
+        "userTypeId": 2,
+        "Username": Username,
+        "Password": Password,
+      };
+      log('$body');
+      final response = await http.post(
+        Uri.parse(BaseUrl.AddNotification),
+        headers: <String, String>{
+          "Content-Type": "application/json",
+        },
+        body: jsonEncode(
+            {
+              "SamajID": 1,
+              "userTypeId": 2,
+              "Username": Username,
+              "Password": Password,
+            }
+        ),
+      );
+      log('RESPONSE BODY: ${response.body}');
+      if (response.statusCode == 200) {
+        responseJson = jsonDecode(response.body);
+        token = responseJson['token'].toString();
+        GetStorage().write(BaseUrl.LoginAuthorizetoken, token);
+        return true;
+      }else{
+        return false;
+      }
+    }catch (e) {
+      debugPrint("Error $e");
+    }
+    return false;
+  }
+
 }
 
 

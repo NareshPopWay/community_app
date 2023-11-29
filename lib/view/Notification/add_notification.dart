@@ -1,6 +1,7 @@
 import 'package:community_app/common/spacing.dart';
 import 'package:community_app/common/widget/simpledropdown.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -28,6 +29,15 @@ class AddNotificationScreen extends GetView<AddNotificationController> {
           ),
         ),
         centerTitle: true,
+        leading: IconButton(
+            onPressed: (){
+              Get.back();
+            },
+            icon: Icon(
+              Icons.arrow_back_ios,
+              color: ThemeService.white,
+            )
+        ),
       ),
       body:SingleChildScrollView(
         child: Padding(
@@ -212,9 +222,28 @@ class AddNotificationScreen extends GetView<AddNotificationController> {
                   SizedBox(
                     height: 15.0,
                   ),
-                  GestureDetector(
+                  if (controller.isLoading.value == false)
+                    GestureDetector(
                     onTap: () {
                       // check();
+                      if (controller.key.currentState!.validate()) {
+                        controller.isLoading.value = true;
+                         controller.key.currentState!.save();
+                         if(controller.selectedFile.value == null){
+                           controller.isLoading.value = false;
+                           Fluttertoast.showToast(
+                               msg: "Please select Image",
+                               toastLength: Toast.LENGTH_SHORT,
+                               gravity: ToastGravity.CENTER,
+                               timeInSecForIosWeb: 1,
+                               backgroundColor: Colors.red,
+                               textColor: Colors.white,
+                               fontSize: 16.0);
+                         }else{
+                           controller.addNotification();
+                         }
+
+                      }
                     },
                     child: Container(
                       height: 55.0,
@@ -235,7 +264,10 @@ class AddNotificationScreen extends GetView<AddNotificationController> {
                         child: Text("Add Notification", style: GoogleFonts.aBeeZee(fontSize: 18.0, fontWeight: FontWeight.bold, color: Colors.white),),
                       ),
                     ),
-                  ),
+                  )
+                  else CircularProgressIndicator(
+                      backgroundColor: Colors.white,
+                      valueColor: AlwaysStoppedAnimation<Color>(ThemeService.primaryColor)),
                 ],
               ),
             ),

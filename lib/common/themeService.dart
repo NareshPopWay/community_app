@@ -18,7 +18,7 @@ class ThemeService extends GetxService {
   static const Color Scolor = Color(0xFFFFAB40);
 
   static const MaterialColor primaryColor = MaterialColor(
-    0xFFF58634,
+    0xFFF44336,
     <int, Color>{
       50: Color(0xFFF44336),
       100: Color(0xFFD0C8F4),

@@ -71,6 +71,26 @@ class MemberController extends GetxController {
     }
   }
 
+  Rx<TextEditingController> searchText = TextEditingController().obs;
+    final RxList<MemberModel> memberSearchResult = RxList();
+  final RxBool isMemberSearching = RxBool(false);
 
+  void onSearch(
+      String text, {
+        required RxList searchResult,
+        required List<MemberModel> list,
+        required RxBool isSearching,
+      }) async {
+    searchResult.clear();
+    isSearching.value = text.isNotEmpty;
+    if (text.isEmpty) {
+      return;
+    }
+    for (var searchText in list) {
+      if ((searchText.samajId.toString().trim()).toLowerCase().contains(text.trim().toLowerCase()) || (searchText.memberId.toString().trim()).toLowerCase().contains(text.trim().toLowerCase())||(searchText.familyMemberId.toString().trim()).toLowerCase().contains(text.trim().toLowerCase())||(searchText.familyMemberName.toString().trim()).toLowerCase().contains(text.trim().toLowerCase())||(searchText.address.toString().trim()).toLowerCase().contains(text.trim().toLowerCase())||(searchText.birthDate.toString().trim()).toLowerCase().contains(text.trim().toLowerCase())||(searchText.mobileNumber.toString().trim()).toLowerCase().contains(text.trim().toLowerCase())||(searchText.sakhe.toString().trim()).toLowerCase().contains(text.trim().toLowerCase())) {
+        searchResult.add(searchText);
+      }
+    }
+  }
 
 }

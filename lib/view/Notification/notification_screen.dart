@@ -21,17 +21,17 @@ class NotificationScreen extends GetView<NotificationController> {
   @override
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
-      appBar: AppBar(
-        backgroundColor: ThemeService.primaryColor,
-        title: Text(
-          "Notification",
-          style: GoogleFonts.aBeeZee(
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
-          ),
-        ),
-        centerTitle: true,
-      ),
+      // appBar: AppBar(
+      //   backgroundColor: ThemeService.primaryColor,
+      //   title: Text(
+      //     "Notification",
+      //     style: GoogleFonts.aBeeZee(
+      //       fontWeight: FontWeight.bold,
+      //       fontSize: 20,
+      //     ),
+      //   ),
+      //   centerTitle: true,
+      // ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: ThemeService.primaryColor,
         onPressed: () {

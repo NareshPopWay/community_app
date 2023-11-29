@@ -1,6 +1,7 @@
 class Routes {
   static const root = '/';
   static const home = '/home';
+  static const login = '/login';
   static const addMember = '/addMember';
   static const goodNews = '/goodNews';
   static const sadNews = '/sadNews';
@@ -10,5 +11,6 @@ class Routes {
   static const notificationDetails = '/newsDetails';
   static const memberDetails = '/memberDetails';
   static const addNotification = '/addNotification';
+  static const familyMember = '/familyMember';
 
 }
