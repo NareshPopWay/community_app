@@ -12,5 +12,8 @@ class Routes {
   static const memberDetails = '/memberDetails';
   static const addNotification = '/addNotification';
   static const familyMember = '/familyMember';
+  static const marriage = '/marriage';
+  static const marriageDetail = '/marriageDetail';
+  static const addFamilyMember = '/addFamilyMember';
 
 }

@@ -198,11 +198,16 @@ class LoginScreen extends GetView<LoginController> {
                                   const SizedBox(
                                     height: 16,
                                   ),
-                                  GestureDetector(
+                                 controller.isLoading.value ?
+                                 CircularProgressIndicator(
+                                     backgroundColor: Colors.white,
+                                     valueColor: AlwaysStoppedAnimation<Color>(ThemeService.primaryColor))
+                                     : GestureDetector(
                                     onTap: () {
                                       if (controller.key.currentState!
                                           .validate()) {
                                         controller.key.currentState!.save();
+                                        controller.isLoading.value = true;
                                         controller.login();
                                       }
                                     },

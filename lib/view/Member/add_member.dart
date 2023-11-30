@@ -5,7 +5,6 @@ import 'package:community_app/models/PMemberModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AddMemberScreen extends GetView<MemberController> {
@@ -14,7 +13,7 @@ class AddMemberScreen extends GetView<MemberController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ThemeService.backgroundColor,
+      backgroundColor: ThemeService.white,
       appBar: AppBar(
         iconTheme: IconThemeData(
           color: Colors.white, //change your color here

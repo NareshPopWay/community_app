@@ -1,35 +1,30 @@
 import 'package:community_app/common/api_constant.dart';
 import 'package:community_app/common/api_provider.dart';
 import 'package:community_app/common/constant.dart';
-import 'package:community_app/common/routes/app_routes.dart';
 import 'package:community_app/models/family_member_model.dart';
+import 'package:community_app/models/marriage_model.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
-import '../common/themeService.dart';
+class MarriageController extends GetxController {
 
-class LoginController extends GetxController {
-
-  final key = new GlobalKey<FormState>();
-  RxBool secureText = true.obs;
   RxBool isLoading = false.obs;
   RxString token="".obs;
-
-  Rx<TextEditingController> userName = TextEditingController().obs;
-  Rx<TextEditingController> password = TextEditingController().obs;
+  RxList<MarriageModel> marriageList = <MarriageModel>[].obs;
 
   @override
   void onInit() async {
     super.onInit();
-    token.value = GetStorage().read(BaseUrl.LoginAuthorizetoken).toString();
+    token.value = GetStorage().read(BaseUrl.Authorizetoken).toString();
     if (token.value == "") {
-      token.value =   GetStorage().read(BaseUrl.LoginAuthorizetoken).toString();
+      token.value =   GetStorage().read(BaseUrl.Authorizetoken).toString();
     }
+    getMarriage();
   }
 
-  Future<void> login() async {
+  Future<void> getMarriage() async {
     isLoading.value = true;
     bool isInternet = await Constants.isInternetAvail();
     if (!isInternet) {
@@ -46,18 +41,10 @@ class LoginController extends GetxController {
       return;
     }
 
-    bool loginResponse = await APIProvider().login(Username:userName.value.text, Password:password.value.text);
-    if (loginResponse == true) {
+    var marriageResponse = await APIProvider().getMarriage(token.value);
+    if (marriageResponse.isNotEmpty) {
+      marriageList.addAll(marriageResponse);
       isLoading.value = false;
-      Fluttertoast.showToast(
-          msg: 'Login successfully done',
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.green,
-          textColor: ThemeService.black,
-          fontSize: 16.0);
-       Get.offNamed(Routes.home);
     }
     else {
       isLoading.value = false;

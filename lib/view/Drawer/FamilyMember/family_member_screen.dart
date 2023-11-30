@@ -1,12 +1,17 @@
 // ignore_for_file: unnecessary_null_comparison
 
+import 'package:community_app/common/routes/app_routes.dart';
+import 'package:community_app/common/spacing.dart';
 import 'package:community_app/common/themeService.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import '../../../common/api_constant.dart';
-import '../../../controllers/family_member_controller.dart';
+import '../../../controllers/FamilyMemberController/family_member_controller.dart';
 
 class FamilyMemberScreen extends GetView<FamilyMemberController> {
   const FamilyMemberScreen({Key? key}) : super(key: key);
@@ -31,8 +36,24 @@ class FamilyMemberScreen extends GetView<FamilyMemberController> {
             icon: Icon(
               Icons.arrow_back_ios,
               color: ThemeService.white,
-            )
+            ),
         ),
+        actions: <Widget>[
+          IconButton(
+            onPressed: ()async{
+              await GetStorage().write(BaseUrl.LoginAuthorizetoken,"");
+              Get.back();
+            },
+            icon: const Icon(FeatherIcons.logOut,color: ThemeService.white),
+          ),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: ThemeService.primaryColor,
+        onPressed: () {
+         Get.toNamed(Routes.addFamilyMember);
+        },
+        child: Icon(MdiIcons.accountPlusOutline, color: Colors.white),
       ),
       body: controller.isLoading.value ?
       Center(
@@ -40,7 +61,17 @@ class FamilyMemberScreen extends GetView<FamilyMemberController> {
               backgroundColor: Colors.white,
               valueColor:
               AlwaysStoppedAnimation<Color>(ThemeService.primaryColor)))
-          :ListView.builder(
+          :controller.familyMemberList.value.isEmpty
+          ? Center(
+        child: Text(
+          'Family Member\'s Not Available',
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.w400,
+            fontSize: AppSpacings.s22,
+          ),
+        ),
+      ):ListView.builder(
           itemCount: controller.familyMemberList.length,
           itemBuilder: (BuildContext ctx, index) {
             return InkWell(
@@ -70,7 +101,7 @@ class FamilyMemberScreen extends GetView<FamilyMemberController> {
                         width: Get.height * 0.18,
                         height: Get.height * 0.18,
                         decoration: BoxDecoration(
-                          shape: BoxShape.circle,
+                          borderRadius: BorderRadius.circular(10),
                           image: DecorationImage(
                             image: NetworkImage(
                               BaseUrl.ImageURL +

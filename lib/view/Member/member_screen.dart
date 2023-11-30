@@ -158,12 +158,12 @@ class MemberScreen extends GetView<MemberController> {
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
                                     Padding(
-                                      padding: const EdgeInsets.only(top: 5.0, left: 5, bottom: 5),
+                                      padding: const EdgeInsets.only(top: 5.0, left: 10, bottom: 5),
                                       child: Container(
                                         width: Get.height * 0.15,
                                         height: Get.height * 0.15,
                                         decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
+                                          borderRadius: BorderRadius.circular(10),
                                           image: DecorationImage(
                                             image: NetworkImage(
                                               BaseUrl.ImageURL +

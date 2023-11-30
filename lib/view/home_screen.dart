@@ -2,6 +2,8 @@
 
 // ignore_for_file: unnecessary_null_comparison
 
+import 'dart:developer';
+
 import 'package:community_app/common/routes/app_routes.dart';
 import 'package:community_app/common/spacing.dart';
 import 'package:community_app/common/themeService.dart';
@@ -13,9 +15,12 @@ import 'package:community_app/view/Notification/notification_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+
+import '../common/api_constant.dart';
 
 class HomeScreen extends GetView<AuthController> {
   const HomeScreen({Key? key}) : super(key: key);
@@ -79,7 +84,9 @@ class HomeScreen extends GetView<AuthController> {
                     children: <Widget>[
                       InkWell(
                         onTap: () {
-                          if(controller.token.value == 'null'){
+                          controller.token.value = GetStorage().read(BaseUrl.LoginAuthorizetoken).toString();
+                          log('Token ${controller.token.value}');
+                          if(controller.token.value == ''){
                             Get.offNamed(Routes.login);
                           }else{
                             Get.toNamed(Routes.familyMember);
@@ -122,7 +129,7 @@ class HomeScreen extends GetView<AuthController> {
                       // ),
                       InkWell(
                         onTap: () {
-
+                          Get.toNamed(Routes.marriage);
                         },
                         child: ListTile(
                           title: Text(

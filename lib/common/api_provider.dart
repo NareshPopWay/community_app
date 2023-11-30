@@ -9,6 +9,7 @@ import 'package:community_app/common/ui.dart';
 import 'package:community_app/models/PMemberModel.dart';
 import 'package:community_app/models/family_member_model.dart';
 import 'package:community_app/models/field_item_value_model.dart';
+import 'package:community_app/models/marriage_model.dart';
 import 'package:community_app/models/member_model.dart';
 import 'package:community_app/models/notification_model.dart';
 import 'package:flutter/material.dart';
@@ -385,6 +386,34 @@ class APIProvider {
     return list;
   }
 
+  Future<List<MarriageModel>> getMarriage(String apiToken) async {
+    var responseJson;
+    List<MarriageModel> list = [];
+    try {
+      log(BaseUrl.GetMarriage);
+
+      final response = await http.get(
+          Uri.parse(
+            BaseUrl.GetMarriage,
+          ),
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer $apiToken",
+          });
+      log('getMarriage - ${response.body}');
+      responseJson = json.decode(response.body);
+      log(response.statusCode.toString());
+
+      for (int i = 0; i < responseJson.length; i++) {
+        list.add(MarriageModel.fromJson(responseJson[i]));
+      }
+    } on SocketException {
+      Ui.ErrorSnackBar(title: 'No Internet connection');
+    } catch (e) {
+      print("error ...getFamilyMember ...... $e");
+    }
+    return list;
+  }
 
   Future<bool> login({
     required String Username,
@@ -399,26 +428,62 @@ class APIProvider {
         "Username": Username,
         "Password": Password,
       };
+      log(BaseUrl.login);
       log('$body');
       final response = await http.post(
-        Uri.parse(BaseUrl.AddNotification),
+        Uri.parse(BaseUrl.login),
         headers: <String, String>{
           "Content-Type": "application/json",
         },
-        body: jsonEncode(
+        body:jsonEncode(
             {
               "SamajID": 1,
               "userTypeId": 2,
               "Username": Username,
               "Password": Password,
             }
-        ),
+        )
+
+      );
+      log('RESPONSE BODY: ${response.body}');
+      responseJson = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        token = responseJson['token'].toString();
+        GetStorage().write(BaseUrl.LoginAuthorizetoken, token);
+        return true;
+      }else{
+        Fluttertoast.showToast(
+            msg: responseJson['message'],
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.redAccent,
+            textColor: ThemeService.white,
+            fontSize: 16.0);
+        return false;
+      }
+    }catch (e) {
+      debugPrint("Error $e");
+    }
+    return false;
+  }
+
+  Future<bool> addFamilyMember(
+      {required FamilyMemberModel members, required String apiToken}) async{
+
+    try{
+      Map body= members.toJson();
+      log('$body');
+      final response = await http.post(
+        Uri.parse(BaseUrl.AddFamilyMember),
+        headers: <String, String>{
+          "Content-Type": "application/json",
+          "Authorization": "Bearer $apiToken"
+        },
+        body:jsonEncode(members.toJson()),
       );
       log('RESPONSE BODY: ${response.body}');
       if (response.statusCode == 200) {
-        responseJson = jsonDecode(response.body);
-        token = responseJson['token'].toString();
-        GetStorage().write(BaseUrl.LoginAuthorizetoken, token);
         return true;
       }else{
         return false;
@@ -427,6 +492,25 @@ class APIProvider {
       debugPrint("Error $e");
     }
     return false;
+  }
+
+  Future<String> saveFamilyMemberImage({required String apiToken,required String imageFile}) async{
+    var responseJson = '';
+
+    var request = http.MultipartRequest(
+        "POST", Uri.parse(BaseUrl.SaveFamilyMemberImage));
+    request.headers.addAll({
+      "Authorization": "Bearer $apiToken"
+    });
+    request.files.add(await http.MultipartFile.fromPath('imageFile', imageFile));
+
+    http.StreamedResponse response = await request.send();
+    if (response.statusCode == 200) {
+      responseJson = await response.stream.bytesToString();
+      log('RESPONSE BODY: ${responseJson}');
+      return responseJson.toString();
+    }
+    return responseJson.toString();
   }
 
 }
