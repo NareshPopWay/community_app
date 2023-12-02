@@ -53,7 +53,7 @@ dropDwonWidget({
                           emptyTitle,
                           style: Get.textTheme.bodyLarge!.copyWith(
                             fontSize: AppSpacings.s20,
-                            color: ThemeService.black,
+                            color: ThemeService.primaryColor,
                           ),
                         ),
                       ),

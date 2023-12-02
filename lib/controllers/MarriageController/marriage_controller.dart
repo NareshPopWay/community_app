@@ -24,6 +24,31 @@ class MarriageController extends GetxController {
     getMarriage();
   }
 
+
+
+  Rx<TextEditingController> searchText = TextEditingController().obs;
+  final RxList<MarriageModel> marriageSearchResult = RxList();
+  final RxBool isMarriageSearching = RxBool(false);
+
+  void onSearch(
+      String text, {
+        required RxList searchResult,
+        required List<MarriageModel> list,
+        required RxBool isSearching,
+      }) async {
+    searchResult.clear();
+    isSearching.value = text.isNotEmpty;
+    if (text.isEmpty) {
+      return;
+    }
+    for (var searchText in list) {
+      if ((searchText.samajId.toString().trim()).toLowerCase().contains(text.trim().toLowerCase()) || (searchText.memberId.toString().trim()).toLowerCase().contains(text.trim().toLowerCase())||(searchText.address.toString().trim()).toLowerCase().contains(text.trim().toLowerCase())||(searchText.birthDate.toString().trim()).toLowerCase().contains(text.trim().toLowerCase())||(searchText.mobileNumber.toString().trim()).toLowerCase().contains(text.trim().toLowerCase())||(searchText.sakhe.toString().trim()).toLowerCase().contains(text.trim().toLowerCase())||(searchText.name.toString().trim()).toLowerCase().contains(text.trim().toLowerCase())||(searchText.maritalStatus.toString().trim()).toLowerCase().contains(text.trim().toLowerCase())||(searchText.occupation.toString().trim()).toLowerCase().contains(text.trim().toLowerCase())||(searchText.qualification.toString().trim()).toLowerCase().contains(text.trim().toLowerCase())||(searchText.village.toString().trim()).toLowerCase().contains(text.trim().toLowerCase())||(searchText.monthlyIncome.toString().trim()).toLowerCase().contains(text.trim().toLowerCase())||(searchText.fatherName.toString().trim()).toLowerCase().contains(text.trim().toLowerCase())) {
+        searchResult.add(searchText);
+      }
+    }
+  }
+
+
   Future<void> getMarriage() async {
     isLoading.value = true;
     bool isInternet = await Constants.isInternetAvail();

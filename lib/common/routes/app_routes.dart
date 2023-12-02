@@ -15,5 +15,6 @@ class Routes {
   static const marriage = '/marriage';
   static const marriageDetail = '/marriageDetail';
   static const addFamilyMember = '/addFamilyMember';
+  static const addMarriage = '/addMarriage';
 
 }

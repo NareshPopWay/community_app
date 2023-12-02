@@ -8,13 +8,15 @@ import 'package:community_app/binders/Notification_Binder/sad_news_binder.dart';
 import 'package:community_app/binders/add_family_member_binder.dart';
 import 'package:community_app/binders/add_member_binder.dart';
 import 'package:community_app/binders/auth_binder.dart';
-import 'package:community_app/binders/marriage_binder.dart';
-import 'package:community_app/binders/marriage_detail_binder.dart';
+import 'package:community_app/binders/marriage_Binders/add_marriage_binder.dart';
+import 'package:community_app/binders/marriage_Binders/marriage_binder.dart';
+import 'package:community_app/binders/marriage_Binders/marriage_detail_binder.dart';
 import 'package:community_app/common/routes/app_routes.dart';
 import 'package:community_app/common/widget/auth_widget.dart';
 import 'package:community_app/controllers/MemberController/member_detail_controller.dart';
 import 'package:community_app/view/Drawer/FamilyMember/add_family_member.dart';
 import 'package:community_app/view/Drawer/FamilyMember/family_member_screen.dart';
+import 'package:community_app/view/Drawer/Marriage/add_marriage_screen.dart';
 import 'package:community_app/view/Drawer/Marriage/marriage_details_screen.dart';
 import 'package:community_app/view/Drawer/Marriage/marriage_screen.dart';
 import 'package:community_app/view/Member/add_member.dart';
@@ -120,6 +122,12 @@ class PageRoutes {
       name: Routes.addFamilyMember,
       page: () => AddFamilyMemberScreen(),
       binding: AddFamilyMemberBinder(),
+     ),
+
+  GetPage(
+      name: Routes.addMarriage,
+      page: () => AddMarriageScreen(),
+      binding: AddMarriageBinder(),
      ),
 
   ];
