@@ -1,3 +1,7 @@
+import 'package:community_app/binders/Business_Binders/business_binder.dart';
+import 'package:community_app/binders/FeedBack/add_feedback_binder.dart';
+import 'package:community_app/binders/FeedBack/feedback_binder.dart';
+import 'package:community_app/binders/Marksheet_Binders/marksheet_binder.dart';
 import 'package:community_app/binders/Notification_Binder/add_notification_binder.dart';
 import 'package:community_app/binders/Notification_Binder/edu_news_binder.dart';
 import 'package:community_app/binders/Notification_Binder/good_news_binder.dart';
@@ -13,12 +17,22 @@ import 'package:community_app/binders/marriage_Binders/marriage_binder.dart';
 import 'package:community_app/binders/marriage_Binders/marriage_detail_binder.dart';
 import 'package:community_app/common/routes/app_routes.dart';
 import 'package:community_app/common/widget/auth_widget.dart';
-import 'package:community_app/controllers/MemberController/member_detail_controller.dart';
+import 'package:community_app/view/Drawer/Advertisement/add_advertisement.dart';
+import 'package:community_app/view/Drawer/Advertisement/advertisement_screen.dart';
+import 'package:community_app/view/Drawer/Business/add_business.dart';
+import 'package:community_app/view/Drawer/Business/business_screen.dart';
+import 'package:community_app/view/Drawer/Donation/donation_screen.dart';
 import 'package:community_app/view/Drawer/FamilyMember/add_family_member.dart';
 import 'package:community_app/view/Drawer/FamilyMember/family_member_screen.dart';
+import 'package:community_app/view/Drawer/FeedBack/add_feedback.dart';
+import 'package:community_app/view/Drawer/FeedBack/feedback_screen.dart';
+import 'package:community_app/view/Drawer/Marksheet/marksheet_screen.dart';
 import 'package:community_app/view/Drawer/Marriage/add_marriage_screen.dart';
 import 'package:community_app/view/Drawer/Marriage/marriage_details_screen.dart';
 import 'package:community_app/view/Drawer/Marriage/marriage_screen.dart';
+import 'package:community_app/view/Drawer/job/add_job_screen.dart';
+import 'package:community_app/view/Drawer/job/job_detail_screen.dart';
+import 'package:community_app/view/Drawer/job/job_screen.dart';
 import 'package:community_app/view/Member/add_member.dart';
 import 'package:community_app/view/Member/member_detail_screen.dart';
 import 'package:community_app/view/Notification/add_notification.dart';
@@ -31,8 +45,27 @@ import 'package:community_app/view/home_screen.dart';
 import 'package:community_app/view/login_screen.dart';
 import 'package:get/get.dart';
 
+import '../../binders/Advertisement_Binders/add_advertisement_binder.dart';
+import '../../binders/Advertisement_Binders/advertisement_binder.dart';
+import '../../binders/Advertisement_Binders/advertisement_detail_binder.dart';
+import '../../binders/Business_Binders/add_business_binder.dart';
+import '../../binders/Donation_Binders/blood_donation_binder.dart';
+import '../../binders/Donation_Binders/donation_binder.dart';
+import '../../binders/Donation_Binders/money_donation_binder.dart';
+import '../../binders/Donation_Binders/organ_donation_binder.dart';
+import '../../binders/Donation_Binders/other_donation_binder.dart';
+import '../../binders/Job_Binders/add_job_binder.dart';
+import '../../binders/Job_Binders/job_binder.dart';
+import '../../binders/Job_Binders/job_detail_binder.dart';
+import '../../binders/Marksheet_Binders/add_marksheet_binder.dart';
 import '../../binders/Notification_Binder/notification_details_binder.dart';
 import '../../binders/family_member_binder.dart';
+import '../../view/Drawer/Advertisement/advertisement_detail_screen.dart';
+import '../../view/Drawer/Donation/blood_donation_screen.dart';
+import '../../view/Drawer/Donation/money_donation_screen.dart';
+import '../../view/Drawer/Donation/organ_donation_screen.dart';
+import '../../view/Drawer/Donation/other_donation_screen.dart';
+import '../../view/Drawer/Marksheet/add_marksheet.dart';
 import '../../view/Notification/notification_detail_screen.dart';
 
 class PageRoutes {
@@ -130,5 +163,97 @@ class PageRoutes {
       binding: AddMarriageBinder(),
      ),
 
+   GetPage(
+      name: Routes.job,
+      page: () => JobScreen(),
+      binding: JobBinder(),
+     ),
+    GetPage(
+      name: Routes.jobDetails,
+      page: () => JobDetailsScreen(),
+      binding: JobDetailBinder(),
+     ),
+   GetPage(
+      name: Routes.addJob,
+      page: () => AddJobScreen(),
+      binding: AddJobBinder(),
+     ),
+
+   GetPage(
+      name: Routes.business,
+      page: () => BusinessScreen(),
+      binding: BusinessBinder(),
+     ),
+
+  GetPage(
+      name: Routes.addBusiness,
+      page: () => AddBusinessScreen(),
+      binding: AddBusinessBinder(),
+     ),
+  GetPage(
+      name: Routes.advertisement,
+      page: () => AdvertisementScreen(),
+      binding: AdvertisementBinder(),
+     ),
+ GetPage(
+      name: Routes.advertisementDetails,
+      page: () => AdvertisementDetailsScreen(),
+      binding: AdvertisementDetailBinder(),
+     ),
+  GetPage(
+      name: Routes.addAdvertisement,
+      page: () => AddAdvertisementScreen(),
+      binding: AddAdvertisementBinder(),
+     ),
+
+ GetPage(
+      name: Routes.marksheet,
+      page: () => MarksheetScreen(),
+      binding: MarksheetBinder(),
+     ),
+
+ GetPage(
+      name: Routes.addMarksheet,
+      page: () => AddMarksheetScreen(),
+      binding: AddMarksheetBinder(),
+     ),
+
+ GetPage(
+      name: Routes.feedBack,
+      page: () => FeedBackScreen(),
+      binding: FeedBackBinder(),
+     ),
+
+    GetPage(
+      name: Routes.addFeedBack,
+      page: () => AddFeedBackScreen(),
+      binding: AddFeedBinder(),
+    ),
+
+    GetPage(
+      name: Routes.donation,
+      page: () => DonationScreen(),
+      binding: DonationBinder(),
+    ),
+    GetPage(
+      name: Routes.bloodDonation,
+      page: () => BloodDonationScreen(),
+      binding: BloodDonationBinder(),
+    ),
+    GetPage(
+      name: Routes.moneyDonation,
+      page: () => MoneyDonationScreen(),
+      binding: MoneyDonationBinder(),
+    ),
+    GetPage(
+      name: Routes.organDonation,
+      page: () => OrganDonationScreen(),
+      binding: OrganDonationBinder(),
+    ),
+    GetPage(
+      name: Routes.otherDonation,
+      page: () => OtherDonationScreen(),
+      binding: OtherDonationBinder(),
+    ),
   ];
 }

@@ -135,8 +135,8 @@ class MemberScreen extends GetView<MemberController> {
                       ),
                     )
                         : controller.isMemberSearching.value
-                        ? buildListView(controller.memberSearchResult) :
-                    Expanded(
+                        ? buildListView(controller.memberSearchResult)
+                        : Expanded(
                       child: ListView.builder(
                           shrinkWrap: true,
                           physics: const BouncingScrollPhysics(parent: BouncingScrollPhysics()),

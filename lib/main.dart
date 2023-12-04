@@ -60,7 +60,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: "Better Living",
+      title: "Community",
       initialRoute: PageRoutes.initial,
       getPages: PageRoutes.routes,
       defaultTransition: Transition.cupertino,

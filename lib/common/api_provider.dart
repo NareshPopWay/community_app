@@ -17,6 +17,12 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 
+import '../models/addvertisement_model.dart';
+import '../models/business_model.dart';
+import '../models/feedback_model.dart';
+import '../models/job_model.dart';
+import '../models/marksheet_model.dart';
+
 class APIProvider {
 
   Future<bool> getToken() async {
@@ -511,6 +517,409 @@ class APIProvider {
       return responseJson.toString();
     }
     return responseJson.toString();
+  }
+
+
+  Future<String> saveMarriageImage({required String apiToken,required String imageFile}) async{
+    var responseJson = '';
+
+    var request = http.MultipartRequest(
+        "POST", Uri.parse(BaseUrl.SaveMarriageImage));
+    request.headers.addAll({
+      "Authorization": "Bearer $apiToken"
+    });
+    request.files.add(await http.MultipartFile.fromPath('imageFile', imageFile));
+
+    http.StreamedResponse response = await request.send();
+    if (response.statusCode == 200) {
+      responseJson = await response.stream.bytesToString();
+      log('RESPONSE BODY: ${responseJson}');
+      return responseJson.toString();
+    }
+    return responseJson.toString();
+  }
+
+  Future<bool> marriageRegistration(
+      {required MarriageModel marriageDetails, required String apiToken}) async{
+
+    try{
+      Map body= marriageDetails.toJson();
+      log('$body');
+      final response = await http.post(
+        Uri.parse(BaseUrl.AddMarriage),
+        headers: <String, String>{
+          "Content-Type": "application/json",
+          "Authorization": "Bearer $apiToken"
+        },
+        body:jsonEncode(marriageDetails.toJson()),
+      );
+      log('RESPONSE BODY: ${response.body}');
+      if (response.statusCode == 200) {
+        return true;
+      }else{
+        return false;
+      }
+    }catch (e) {
+      debugPrint("Error $e");
+    }
+    return false;
+  }
+
+
+  Future<List<JobModel>> getJob(String apiToken) async {
+    var responseJson;
+    List<JobModel> list = [];
+    try {
+      log(BaseUrl.GetJob);
+
+      final response = await http.get(
+          Uri.parse(
+            BaseUrl.GetJob,
+          ),
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer $apiToken",
+          });
+      log('getJob - ${response.body}');
+      responseJson = json.decode(response.body);
+      log(response.statusCode.toString());
+
+      for (int i = 0; i < responseJson.length; i++) {
+        list.add(JobModel.fromJson(responseJson[i]));
+      }
+    } on SocketException {
+      Ui.ErrorSnackBar(title: 'No Internet connection');
+    } catch (e) {
+      print("error ...getFamilyMember ...... $e");
+    }
+    return list;
+  }
+
+  Future<String> saveJobImage({required String apiToken,required String imageFile}) async{
+    var responseJson = '';
+
+    var request = http.MultipartRequest(
+        "POST", Uri.parse(BaseUrl.SaveJobImage));
+    request.headers.addAll({
+      "Authorization": "Bearer $apiToken"
+    });
+    request.files.add(await http.MultipartFile.fromPath('imageFile', imageFile));
+
+    http.StreamedResponse response = await request.send();
+    if (response.statusCode == 200) {
+      responseJson = await response.stream.bytesToString();
+      log('RESPONSE BODY: ${responseJson}');
+      return responseJson.toString();
+    }
+    return responseJson.toString();
+  }
+
+  Future<bool> addJob(
+      {required JobModel jobDetails, required String apiToken}) async{
+
+    try{
+      Map body= jobDetails.toJson();
+      log('$body');
+      final response = await http.post(
+        Uri.parse(BaseUrl.AddJob),
+        headers: <String, String>{
+          "Content-Type": "application/json",
+          "Authorization": "Bearer $apiToken"
+        },
+        body:jsonEncode(jobDetails.toJson()),
+      );
+      log('RESPONSE BODY: ${response.body}');
+      if (response.statusCode == 200) {
+        return true;
+      }else{
+        return false;
+      }
+    }catch (e) {
+      debugPrint("Error $e");
+    }
+    return false;
+  }
+
+
+  Future<List<BusinessModel>> GetBusiness(String apiToken) async {
+    var responseJson;
+    List<BusinessModel> list = [];
+    try {
+      log(BaseUrl.GetBusiness);
+
+      final response = await http.get(
+          Uri.parse(
+            BaseUrl.GetBusiness,
+          ),
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer $apiToken",
+          });
+      log('GetBusiness - ${response.body}');
+      responseJson = json.decode(response.body);
+      log(response.statusCode.toString());
+
+      for (int i = 0; i < responseJson.length; i++) {
+        list.add(BusinessModel.fromJson(responseJson[i]));
+      }
+    } on SocketException {
+      Ui.ErrorSnackBar(title: 'No Internet connection');
+    } catch (e) {
+      print("error ...getFamilyMember ...... $e");
+    }
+    return list;
+  }
+
+  Future<String> saveBusinessImage({required String apiToken,required String imageFile}) async{
+    var responseJson = '';
+
+    var request = http.MultipartRequest(
+        "POST", Uri.parse(BaseUrl.SaveBusinessImage));
+    request.headers.addAll({
+      "Authorization": "Bearer $apiToken"
+    });
+    request.files.add(await http.MultipartFile.fromPath('imageFile', imageFile));
+
+    http.StreamedResponse response = await request.send();
+    if (response.statusCode == 200) {
+      responseJson = await response.stream.bytesToString();
+      log('RESPONSE BODY: ${responseJson}');
+      return responseJson.toString();
+    }
+    return responseJson.toString();
+  }
+
+  Future<bool> addBusiness(
+      {required BusinessModel businessDetails, required String apiToken}) async{
+
+    try{
+      Map body= businessDetails.toJson();
+      log('$body');
+      final response = await http.post(
+        Uri.parse(BaseUrl.AddBusiness),
+        headers: <String, String>{
+          "Content-Type": "application/json",
+          "Authorization": "Bearer $apiToken"
+        },
+        body:jsonEncode(businessDetails.toJson()),
+      );
+      log('RESPONSE BODY: ${response.body}');
+      if (response.statusCode == 200) {
+        return true;
+      }else{
+        return false;
+      }
+    }catch (e) {
+      debugPrint("Error $e");
+    }
+    return false;
+  }
+
+
+
+  Future<List<AdvertisementModel>> getAdvertisement(String apiToken) async {
+    var responseJson;
+    List<AdvertisementModel> list = [];
+    try {
+      log(BaseUrl.GetAdvertisement);
+
+      final response = await http.get(
+          Uri.parse(
+            BaseUrl.GetAdvertisement,
+          ),
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer $apiToken",
+          });
+      log('getAdvertisement - ${response.body}');
+      responseJson = json.decode(response.body);
+      log(response.statusCode.toString());
+
+      for (int i = 0; i < responseJson.length; i++) {
+        list.add(AdvertisementModel.fromJson(responseJson[i]));
+      }
+    } on SocketException {
+      Ui.ErrorSnackBar(title: 'No Internet connection');
+    } catch (e) {
+      print("error ...getFamilyMember ...... $e");
+    }
+    return list;
+  }
+
+  Future<String> saveAdvertisementImage({required String apiToken,required String imageFile}) async{
+    var responseJson = '';
+
+    var request = http.MultipartRequest(
+        "POST", Uri.parse(BaseUrl.SaveAdvertisementImage));
+    request.headers.addAll({
+      "Authorization": "Bearer $apiToken"
+    });
+    request.files.add(await http.MultipartFile.fromPath('imageFile', imageFile));
+
+    http.StreamedResponse response = await request.send();
+    if (response.statusCode == 200) {
+      responseJson = await response.stream.bytesToString();
+      log('RESPONSE BODY: ${responseJson}');
+      return responseJson.toString();
+    }
+    return responseJson.toString();
+  }
+
+  Future<bool> addAdvertisement(
+      {required AdvertisementModel advertisementDetails, required String apiToken}) async{
+
+    try{
+      Map body= advertisementDetails.toJson();
+      log('$body');
+      final response = await http.post(
+        Uri.parse(BaseUrl.AddAdvertisement),
+        headers: <String, String>{
+          "Content-Type": "application/json",
+          "Authorization": "Bearer $apiToken"
+        },
+        body:jsonEncode(advertisementDetails.toJson()),
+      );
+      log('RESPONSE BODY: ${response.body}');
+      if (response.statusCode == 200) {
+        return true;
+      }else{
+        return false;
+      }
+    }catch (e) {
+      debugPrint("Error $e");
+    }
+    return false;
+  }
+
+
+  Future<List<MarksheetModel>> getMarksheet(String apiToken) async {
+    var responseJson;
+    List<MarksheetModel> list = [];
+    try {
+      log(BaseUrl.GetMarkSheet);
+
+      final response = await http.get(
+          Uri.parse(
+            BaseUrl.GetMarkSheet,
+          ),
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer $apiToken",
+          });
+      log('getMarksheet - ${response.body}');
+      responseJson = json.decode(response.body);
+      log(response.statusCode.toString());
+
+      for (int i = 0; i < responseJson.length; i++) {
+        list.add(MarksheetModel.fromJson(responseJson[i]));
+      }
+    } on SocketException {
+      Ui.ErrorSnackBar(title: 'No Internet connection');
+    } catch (e) {
+      print("error ...getMarksheet ...... $e");
+    }
+    return list;
+  }
+
+  Future<String> saveMarksheetImage({required String apiToken,required String imageFile}) async{
+    var responseJson = '';
+
+    var request = http.MultipartRequest(
+        "POST", Uri.parse(BaseUrl.SaveMarkSheetImage));
+    request.headers.addAll({
+      "Authorization": "Bearer $apiToken"
+    });
+    request.files.add(await http.MultipartFile.fromPath('imageFile', imageFile));
+
+    http.StreamedResponse response = await request.send();
+    if (response.statusCode == 200) {
+      responseJson = await response.stream.bytesToString();
+      log('RESPONSE BODY: ${responseJson}');
+      return responseJson.toString();
+    }
+    return responseJson.toString();
+  }
+
+  Future<bool> addMarksheet(
+      {required MarksheetModel markSheetDetails, required String apiToken}) async{
+
+    try{
+      Map body= markSheetDetails.toJson();
+      log('$body');
+      final response = await http.post(
+        Uri.parse(BaseUrl.AddMarkSheet),
+        headers: <String, String>{
+          "Content-Type": "application/json",
+          "Authorization": "Bearer $apiToken"
+        },
+        body:jsonEncode(markSheetDetails.toJson()),
+      );
+      log('RESPONSE BODY: ${response.body}');
+      if (response.statusCode == 200) {
+        return true;
+      }else{
+        return false;
+      }
+    }catch (e) {
+      debugPrint("Error $e");
+    }
+    return false;
+  }
+
+
+  Future<List<FeedbackModel>> getFeedBack(String apiToken) async {
+    var responseJson;
+    List<FeedbackModel> list = [];
+    try {
+      log(BaseUrl.GetFeedback);
+
+      final response = await http.get(
+          Uri.parse(
+            BaseUrl.GetFeedback,
+          ),
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer $apiToken",
+          });
+      log('getFeedBack - ${response.body}');
+      responseJson = json.decode(response.body);
+      log(response.statusCode.toString());
+
+      for (int i = 0; i < responseJson.length; i++) {
+        list.add(FeedbackModel.fromJson(responseJson[i]));
+      }
+    } on SocketException {
+      Ui.ErrorSnackBar(title: 'No Internet connection');
+    } catch (e) {
+      print("error ...getFeedBack ...... $e");
+    }
+    return list;
+  }
+
+  Future<bool> addFeedBack(
+      {required FeedbackModel feedbackDetails, required String apiToken}) async{
+
+    try{
+      Map body= feedbackDetails.toJson();
+      log('$body');
+      final response = await http.post(
+        Uri.parse(BaseUrl.AddFeedback),
+        headers: <String, String>{
+          "Content-Type": "application/json",
+          "Authorization": "Bearer $apiToken"
+        },
+        body:jsonEncode(feedbackDetails.toJson()),
+      );
+      log('RESPONSE BODY: ${response.body}');
+      if (response.statusCode == 200) {
+        return true;
+      }else{
+        return false;
+      }
+    }catch (e) {
+      debugPrint("Error $e");
+    }
+    return false;
   }
 
 }

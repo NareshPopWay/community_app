@@ -16,5 +16,23 @@ class Routes {
   static const marriageDetail = '/marriageDetail';
   static const addFamilyMember = '/addFamilyMember';
   static const addMarriage = '/addMarriage';
+  static const job = '/job';
+  static const addJob = '/addJob';
+  static const jobDetails = '/jobDetails';
+  static const business = '/business';
+  static const addBusiness = '/addBusiness';
+  static const businessDetails = '/businessDetails';
+  static const advertisement = '/advertisement';
+  static const advertisementDetails = '/advertisementDetails';
+  static const addAdvertisement = '/addAdvertisement';
+  static const marksheet = '/marksheet';
+  static const addMarksheet = '/addMarksheet';
+  static const feedBack = '/feedBack';
+  static const addFeedBack = '/addFeedBack';
+  static const donation = '/donation';
+  static const bloodDonation = '/bloodDonation';
+  static const moneyDonation = '/moneyDonation';
+  static const organDonation = '/organDonation';
+  static const otherDonation = '/OtherDonation';
 
 }

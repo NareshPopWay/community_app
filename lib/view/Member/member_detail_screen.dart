@@ -16,7 +16,7 @@ class MemberDetailsScreen extends GetView<MemberDetailController> {
         appBar: AppBar(
           backgroundColor: ThemeService.primaryColor,
           title: Text(
-            "Notification Detail",
+            "Member Detail",
             style: GoogleFonts.aBeeZee(
               fontWeight: FontWeight.bold,
               fontSize: 20,

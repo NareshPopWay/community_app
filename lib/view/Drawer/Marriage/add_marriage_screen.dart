@@ -933,7 +933,7 @@ class AddMarriageScreen extends GetView<AddMarriageController> {
                     child: TextFormField(
                       style: GoogleFonts.aBeeZee(),
                       cursorColor: ThemeService.primaryColor,
-                      keyboardType: TextInputType.text,
+                      keyboardType: TextInputType.phone,
                       controller: controller.fatherMobileNumberController.value,
                       validator: (e) {
                         if (e!.isEmpty) {
@@ -941,7 +941,12 @@ class AddMarriageScreen extends GetView<AddMarriageController> {
                         }
                         return null;
                       },
-                      // onSaved: (e!) => familyMemberName = e!,
+                      // onSaved: (e!) => mobileNumber = e!,
+                      inputFormatters: [
+                        // new WhitelistingTextInputFormatter(
+                        //     new RegExp(r'^[0-9]*$')),
+                        new LengthLimitingTextInputFormatter(10),
+                      ],
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15)),
@@ -1270,15 +1275,14 @@ class AddMarriageScreen extends GetView<AddMarriageController> {
                   const SizedBox(
                     height: 10.0,
                   ),
-                  controller.step3Loading.value ?
-                  CircularProgressIndicator(
-                      backgroundColor: Colors.white,
-                      valueColor: AlwaysStoppedAnimation<Color>(ThemeService.primaryColor))
-                      : GestureDetector(
-                    onTap: () {
+                  if (controller.step3Loading.value == false)
+                  GestureDetector(
+                    onTap: () async {
                       controller.step3Loading.value = true;
+                      await Future.delayed(const Duration(milliseconds: 500));
                       if (controller.key2.currentState!.validate()) {
                         controller.step3Loading.value = false;
+                        controller.marriageRegistration();
 
                       }else{
                         controller.step3Loading.value = false;
@@ -1303,7 +1307,10 @@ class AddMarriageScreen extends GetView<AddMarriageController> {
                         child: Text("Register", style: GoogleFonts.aBeeZee(fontSize: 18.0, fontWeight: FontWeight.bold, color: Colors.white),),
                       ),
                     ),
-                  ),
+                  )
+                   else CircularProgressIndicator(
+                     backgroundColor: Colors.white,
+                     valueColor: AlwaysStoppedAnimation<Color>(ThemeService.primaryColor)),
                 ],
               ),
             ),
