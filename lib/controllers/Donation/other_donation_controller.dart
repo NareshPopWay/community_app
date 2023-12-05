@@ -1,17 +1,19 @@
 import 'package:community_app/common/api_constant.dart';
 import 'package:community_app/common/api_provider.dart';
 import 'package:community_app/common/constant.dart';
-import 'package:community_app/models/notification_model.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
+import '../../models/donation_model.dart';
+
 class OtherDonationController extends GetxController {
+
 
   RxBool isLoading = false.obs;
   RxString token="".obs;
-  RxList<NotificationModel> goodNewsList = <NotificationModel>[].obs;
+  RxList<DonationModel> otherDonationList = <DonationModel>[].obs;
 
   @override
   void onInit() async {
@@ -20,10 +22,10 @@ class OtherDonationController extends GetxController {
     if (token.value == "") {
       token.value =   GetStorage().read(BaseUrl.Authorizetoken).toString();
     }
-    getGoodNews();
+    getOtherDonation();
   }
 
-  Future<void> getGoodNews() async {
+  Future<void> getOtherDonation() async {
     isLoading.value = true;
     bool isInternet = await Constants.isInternetAvail();
     if (!isInternet) {
@@ -40,9 +42,9 @@ class OtherDonationController extends GetxController {
       return;
     }
 
-    var goodNewsResponse = await APIProvider().getGoodNews(token.value);
-    if (goodNewsResponse.isNotEmpty) {
-      goodNewsList.addAll(goodNewsResponse);
+    var otherDonationResponse = await APIProvider().getOtherDonation(token.value);
+    if (otherDonationResponse.isNotEmpty) {
+      otherDonationList.addAll(otherDonationResponse);
       isLoading.value = false;
     }
     else {

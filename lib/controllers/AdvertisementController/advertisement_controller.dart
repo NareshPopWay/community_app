@@ -40,7 +40,7 @@ class AdvertisementController extends GetxController {
       return;
     }
     for (var searchText in list) {
-      if ((searchText.memberName.toString().trim()).toLowerCase().contains(text.trim().toLowerCase()) || (searchText.aboutAdvertisement.toString().trim()).toLowerCase().contains(text.trim().toLowerCase())||(searchText.mobileNumber.toString().trim()).toLowerCase().contains(text.trim().toLowerCase())||(searchText.whatsappNumber.toString().trim()).toLowerCase().contains(text.trim().toLowerCase())) {
+      if ((searchText.memberName.toString().trim()).toLowerCase().contains(text.trim().toLowerCase()) || (searchText.aboutAdvertisement.toString().trim()).toLowerCase().contains(text.trim().toLowerCase())||(searchText.mobileNumber.toString().trim()).toLowerCase().contains(text.trim().toLowerCase())||(searchText.whatsappNumber.toString().trim()).toLowerCase().contains(text.trim().toLowerCase())||(searchText.whatsappNumber.toString().trim()).toLowerCase().contains(text.trim().toLowerCase())) {
         searchResult.add(searchText);
       }
     }

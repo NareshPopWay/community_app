@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import '../../../common/routes/app_routes.dart';
 import '../../../controllers/Donation/donation_controller.dart';
 
 
@@ -44,7 +45,7 @@ class DonationScreen extends GetView<DonationController> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: ThemeService.primaryColor,
         onPressed: () {
-          //Get.toNamed(Routes.addNotification);
+          Get.toNamed(Routes.addDonation);
         },
         child: Icon(MdiIcons.notebookPlus, color: Colors.white),
       ),

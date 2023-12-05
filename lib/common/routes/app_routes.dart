@@ -12,6 +12,8 @@ class Routes {
   static const memberDetails = '/memberDetails';
   static const addNotification = '/addNotification';
   static const familyMember = '/familyMember';
+  static const editFamilyMember = '/editFamilyMember';
+  static const familyMemberDetail = '/familyMemberDetail';
   static const marriage = '/marriage';
   static const marriageDetail = '/marriageDetail';
   static const addFamilyMember = '/addFamilyMember';
@@ -34,5 +36,13 @@ class Routes {
   static const moneyDonation = '/moneyDonation';
   static const organDonation = '/organDonation';
   static const otherDonation = '/OtherDonation';
+  static const donationDetail = '/donationDetail';
+  static const addDonation = '/addDonation';
+  static const request = '/request';
+  static const requestDetail = '/requestDetail';
+  static const medicalRequest = '/medicalRequest';
+  static const scholarshipRequest = '/scholarshipRequest';
+  static const otherRequest = '/otherRequest';
+  static const addRequest = '/addRequest';
 
 }

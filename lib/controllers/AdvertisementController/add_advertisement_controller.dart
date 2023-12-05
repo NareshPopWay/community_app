@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:community_app/common/constant.dart';
 import 'package:community_app/common/themeService.dart';
+import 'package:community_app/controllers/AdvertisementController/advertisement_controller.dart';
 import 'package:community_app/models/job_model.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,7 @@ class AddAdvertisementController extends GetxController {
   RxBool isLoading = false.obs;
   RxString token="".obs;
 
-
+ AdvertisementController advertisementController = Get.put(AdvertisementController());
 
   Rx<TextEditingController> memberNameController = TextEditingController().obs;
   Rx<TextEditingController> mobileNumberController = TextEditingController().obs;
@@ -102,7 +103,8 @@ class AddAdvertisementController extends GetxController {
         mobileNumberController.value.clear();
         whatsappNumberController.value.clear();
         advertisementDetailsController.value.clear();
-
+        advertisementController.advertisementList.clear();
+        advertisementController.getAdvertisement();
         Get.back();
       }else{
         isLoading.value = false;

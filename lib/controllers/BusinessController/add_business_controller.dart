@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:community_app/common/constant.dart';
 import 'package:community_app/common/themeService.dart';
+import 'package:community_app/controllers/BusinessController/business_controller.dart';
 import 'package:community_app/models/job_model.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,7 @@ class AddBusinessController extends GetxController {
   RxBool isLoading = false.obs;
   RxString token="".obs;
 
-
+  BusinessController businessController = Get.put(BusinessController());
 
   Rx<TextEditingController> memberNameController = TextEditingController().obs;
   Rx<TextEditingController> villageController = TextEditingController().obs;
@@ -127,6 +128,10 @@ class AddBusinessController extends GetxController {
         BusinessNameController.value.clear();
         mobileNumberController.value.clear();
         whatsappNumberController.value.clear();
+
+        businessController.businessList.clear();
+        businessController.getBusiness();
+
         Get.back();
       }else{
         isLoading.value = false;

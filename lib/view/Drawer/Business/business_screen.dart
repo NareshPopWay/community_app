@@ -103,161 +103,165 @@ class BusinessScreen extends GetView<BusinessController> {
               ),
             ),
           ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              controller.isLoading.value ?
-              Center(
-                  child: CircularProgressIndicator(
-                      backgroundColor: Colors.white,
-                      valueColor:
-                      AlwaysStoppedAnimation<Color>(ThemeService.primaryColor)))
-                  : controller.businessList.value.isEmpty
-                  ? Center(
-                child: Text(
-                  'Business\'s Not Available',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w400,
-                    fontSize: AppSpacings.s22,
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                controller.isLoading.value ?
+                Center(
+                    child: CircularProgressIndicator(
+                        backgroundColor: Colors.white,
+                        valueColor:
+                        AlwaysStoppedAnimation<Color>(ThemeService.primaryColor)))
+                    : controller.businessList.value.isEmpty
+                    ? Center(
+                  child: Text(
+                    'Business\'s Not Available',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w400,
+                      fontSize: AppSpacings.s22,
+                    ),
                   ),
-                ),
-              )
-                  : controller.isBusinessSearching.value
-                  ? buildListView(controller.businessSearchResult)
-                  : ListView.builder(
-                      shrinkWrap: true,
-                      physics: const BouncingScrollPhysics(parent: BouncingScrollPhysics()),
-                      padding: EdgeInsets.fromLTRB  (0, AppSpacings.s2,0, 0),
-                      itemCount: controller.businessList.length,
-                      itemBuilder: (context, index) {
-                        return InkWell(
-                          onTap: () {
-                            //Get.toNamed(Routes.jobDetails,arguments:controller.businessList[index]);
-                          },
-                          child: Card(
-                            margin: EdgeInsets.fromLTRB(AppSpacings.s15, 0, AppSpacings.s15, AppSpacings.s25),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            elevation: 5.5, // Change this
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                crossAxisAlignment:
-                                CrossAxisAlignment.center,
-                                children: <Widget>[
-                                  // Expanded(
-                                  //     child:
-                                  Padding(
-                                    padding: EdgeInsets.all(10.0),
-                                    child: Image.network(
-                                      BaseUrl.ImageURL +
-                                          controller.businessList[index]
-                                              .visitingCard,
-                                      fit: BoxFit.fill,
-                                    ),
-                                  ),
-                                  // ),
-                                  SizedBox(
-                                    height: Get.height*0.02,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Flexible(
-                                        child: Text(
-                                          controller.businessList[index]
-                                              .memberName ?? '',
-                                          overflow: TextOverflow
-                                              .ellipsis,
-                                          maxLines: 2,
-                                          style: GoogleFonts.aBeeZee(
-                                              fontSize: 15.0,
-                                              fontWeight:
-                                              FontWeight
-                                                  .w700),
-                                          textAlign:
-                                          TextAlign.start,
+                )
+                    : controller.isBusinessSearching.value
+                    ? buildListView(controller.businessSearchResult)
+                    : Expanded(
+                      child: ListView.builder(
+                          shrinkWrap: true,
+                          physics: const BouncingScrollPhysics(parent: BouncingScrollPhysics()),
+                          padding: EdgeInsets.fromLTRB  (0, AppSpacings.s2,0, 0),
+                          itemCount: controller.businessList.length,
+                          itemBuilder: (context, index) {
+                            return InkWell(
+                              onTap: () {
+                                //Get.toNamed(Routes.jobDetails,arguments:controller.businessList[index]);
+                              },
+                              child: Card(
+                                margin: EdgeInsets.fromLTRB(AppSpacings.s15, 0, AppSpacings.s15, AppSpacings.s25),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                elevation: 5.5, // Change this
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment.center,
+                                    children: <Widget>[
+                                      // Expanded(
+                                      //     child:
+                                      Padding(
+                                        padding: EdgeInsets.all(10.0),
+                                        child: Image.network(
+                                          BaseUrl.ImageURL +
+                                              controller.businessList[index]
+                                                  .visitingCard,
+                                          fit: BoxFit.fill,
                                         ),
+                                      ),
+                                      // ),
+                                      SizedBox(
+                                        height: Get.height*0.02,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        children: [
+                                          Flexible(
+                                            child: Text(
+                                              controller.businessList[index]
+                                                  .memberName ?? '',
+                                              overflow: TextOverflow
+                                                  .ellipsis,
+                                              maxLines: 2,
+                                              style: GoogleFonts.aBeeZee(
+                                                  fontSize: 15.0,
+                                                  fontWeight:
+                                                  FontWeight
+                                                      .w700),
+                                              textAlign:
+                                              TextAlign.start,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "Business Name : ",
+                                            style: GoogleFonts.aBeeZee(
+                                                fontSize: 15.0,
+                                                fontWeight:
+                                                FontWeight
+                                                    .w700),
+                                            textAlign:
+                                            TextAlign.start,
+                                          ),
+                                          Flexible(
+                                            child: Text(
+                                              controller.businessList[index]
+                                                  .businessName ?? '',
+                                              style: GoogleFonts.aBeeZee(
+                                                  fontSize: 15.0,
+                                                  fontWeight:
+                                                  FontWeight
+                                                      .w400),
+                                              textAlign:
+                                              TextAlign.start,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 2.0,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "Mobile NO. : ",
+                                            style: GoogleFonts.aBeeZee(
+                                                fontSize: 15.0,
+                                                fontWeight:
+                                                FontWeight
+                                                    .w700),
+                                            textAlign:
+                                            TextAlign.start,
+                                          ),
+                                          InkWell(
+                                            child: Text(
+                                              controller.businessList[index]
+                                                  .mobileNumber ?? '',
+                                              style: GoogleFonts.aBeeZee(
+                                                  fontSize: 15.0,
+                                                  fontWeight:
+                                                  FontWeight
+                                                      .w400),
+                                              textAlign:
+                                              TextAlign.start,
+                                            ),
+                                            // onTap: () async {
+                                            //   var url =
+                                            //       'tel:${filteredUsers[index].mobilenumber}';
+                                            //   if (await canLaunch(url) != null) {
+                                            //     await launch(url);
+                                            //   } else {
+                                            //     throw 'Could not launch $url';
+                                            //   }
+                                            // },
+                                          ),
+                                        ],
                                       ),
                                     ],
                                   ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "Business Name : ",
-                                        style: GoogleFonts.aBeeZee(
-                                            fontSize: 15.0,
-                                            fontWeight:
-                                            FontWeight
-                                                .w700),
-                                        textAlign:
-                                        TextAlign.start,
-                                      ),
-                                      Flexible(
-                                        child: Text(
-                                          controller.businessList[index]
-                                              .businessName ?? '',
-                                          style: GoogleFonts.aBeeZee(
-                                              fontSize: 15.0,
-                                              fontWeight:
-                                              FontWeight
-                                                  .w400),
-                                          textAlign:
-                                          TextAlign.start,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 2.0,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "Mobile NO. : ",
-                                        style: GoogleFonts.aBeeZee(
-                                            fontSize: 15.0,
-                                            fontWeight:
-                                            FontWeight
-                                                .w700),
-                                        textAlign:
-                                        TextAlign.start,
-                                      ),
-                                      InkWell(
-                                        child: Text(
-                                          controller.businessList[index]
-                                              .mobileNumber ?? '',
-                                          style: GoogleFonts.aBeeZee(
-                                              fontSize: 15.0,
-                                              fontWeight:
-                                              FontWeight
-                                                  .w400),
-                                          textAlign:
-                                          TextAlign.start,
-                                        ),
-                                        // onTap: () async {
-                                        //   var url =
-                                        //       'tel:${filteredUsers[index].mobilenumber}';
-                                        //   if (await canLaunch(url) != null) {
-                                        //     await launch(url);
-                                        //   } else {
-                                        //     throw 'Could not launch $url';
-                                        //   }
-                                        // },
-                                      ),
-                                    ],
-                                  ),
-                                ],
+                                ),
                               ),
-                            ),
-                          ),
-                        );
-                      }),
-            ],
+                            );
+                          }),
+                    ),
+              ],
+            ),
           ),
         ],
       ),

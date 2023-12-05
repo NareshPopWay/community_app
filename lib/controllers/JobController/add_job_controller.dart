@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:community_app/common/constant.dart';
 import 'package:community_app/common/themeService.dart';
+import 'package:community_app/controllers/JobController/job_controller.dart';
 import 'package:community_app/models/job_model.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -45,6 +46,7 @@ class AddJobController extends GetxController {
     }
   }
 
+ JobController jobController = Get.put(JobController());
 
   RxString getFilePath = "".obs;
   Rx<File?> selectedFile = Rx(null);
@@ -127,6 +129,10 @@ class AddJobController extends GetxController {
         jobLocationController.value.clear();
         salaryController.value.clear();
         jobDetailsController.value.clear();
+
+        jobController.jobList.clear();
+        jobController.getJobs();
+
         Get.back();
       }else{
         isLoading.value = false;

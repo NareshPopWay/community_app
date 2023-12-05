@@ -17,7 +17,7 @@ class FamilyMemberModel {
   String occupation;
   String bloodGroup;
   String fileData;
-  String isAdmin;
+  dynamic isAdmin;
   String village;
   String sakhe;
 

@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-
+import 'package:awesome_dialog/awesome_dialog.dart';
 import '../../../common/api_constant.dart';
 import '../../../controllers/FamilyMemberController/family_member_controller.dart';
 
@@ -72,20 +72,23 @@ class FamilyMemberScreen extends GetView<FamilyMemberController> {
           ),
         ),
       ):ListView.builder(
+          shrinkWrap: true,
+          physics: const BouncingScrollPhysics(parent: BouncingScrollPhysics()),
+          padding: EdgeInsets.fromLTRB  (0, AppSpacings.s10,0, 0),
           itemCount: controller.familyMemberList.length,
           itemBuilder: (BuildContext ctx, index) {
             return InkWell(
-              // onTap: () {
-              //   Navigator.of(context).push(MaterialPageRoute(
-              //       builder: (BuildContext context) =>
-              //           MemberDetail(snapshot.data![index])));
-              // },
+              onTap: () {
+
+                Get.toNamed(Routes.familyMemberDetail,arguments:controller.familyMemberList[index]);
+
+              },
               child:  Card(
+                margin: EdgeInsets.fromLTRB(AppSpacings.s15, 0, AppSpacings.s15, AppSpacings.s25),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
-                elevation: 7, // Change this
-                shadowColor: ThemeService.primaryColor,
+                elevation: 5.5, // Change this
                 child:
                 // Padding(
                 // padding: const EdgeInsets.only(
@@ -325,6 +328,7 @@ class FamilyMemberScreen extends GetView<FamilyMemberController> {
                                             //         EditMember(snapshot.data![index],
                                             //             FamilyMember_Manager(LoginAuthorizetoken!).findall())
                                             // ));
+                                            Get.toNamed(Routes.editFamilyMember,arguments:controller.familyMemberList[index]);
                                           },
                                           icon: Icon(Icons.edit,
                                               color: Colors.white),
@@ -348,6 +352,25 @@ class FamilyMemberScreen extends GetView<FamilyMemberController> {
                                         ),
                                         child: IconButton(
                                           onPressed: () {
+
+                                            AwesomeDialog(
+                                                context: context,
+                                                animType: AnimType.BOTTOMSLIDE,
+                                                //headerAnimationLoop: false,
+                                                dialogType: DialogType.ERROR,
+                                                showCloseIcon: true,
+                                                title: "Warning!",
+                                                desc:
+                                                'Deleting a Member will also permanently delete.\n\nDo you really want to delete?',
+                                                btnOkOnPress: () {
+                                                  controller.deleteFamilyMember(controller.familyMemberList[index].familyMemberId.toString());
+                                                },
+                                                btnOkIcon: Icons.check_circle,
+                                                btnOkColor: Colors.red,
+                                                onDismissCallback: (type) {
+                                                  //_delete(l_id);
+                                                  // Get.back();
+                                                })..show();
                                             // dialogDelete(controller.familyMemberList[index].familyMemberId.toString());
                                           },
                                           icon: Icon(Icons.delete,

@@ -1,4 +1,5 @@
 import 'package:community_app/common/themeService.dart';
+import 'package:community_app/controllers/MemberController/add_member_controller.dart';
 import 'package:community_app/controllers/auth_controller.dart';
 import 'package:community_app/controllers/MemberController/member_controller.dart';
 import 'package:community_app/controllers/root_controller.dart';
@@ -11,7 +12,7 @@ class AddMemberBinder extends Bindings {
     Get.lazyPut(() => ThemeService());
     Get.lazyPut(() => AuthController());
     Get.lazyPut(() => RootController());
-    Get.lazyPut(() => MemberController());
+    Get.lazyPut(() => AddMemberController());
 
   }
 }

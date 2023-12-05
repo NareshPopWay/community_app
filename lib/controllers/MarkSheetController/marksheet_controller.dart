@@ -41,7 +41,7 @@ class MarksheetController extends GetxController {
       return;
     }
     for (var searchText in list) {
-      if ((searchText.samajId.toString().trim()).toLowerCase().contains(text.trim().toLowerCase()) || (searchText.memberId.toString().trim()).toLowerCase().contains(text.trim().toLowerCase())||(searchText.mobileNumber.toString().trim()).toLowerCase().contains(text.trim().toLowerCase())) {
+      if ((searchText.samajId.toString().trim()).toLowerCase().contains(text.trim().toLowerCase()) || (searchText.memberId.toString().trim()).toLowerCase().contains(text.trim().toLowerCase())||(searchText.mobileNumber.toString().trim()).toLowerCase().contains(text.trim().toLowerCase())||(searchText.studentName.toString().trim()).toLowerCase().contains(text.trim().toLowerCase())||(searchText.qualification.toString().trim()).toLowerCase().contains(text.trim().toLowerCase())||(searchText.mediumType.toString().trim()).toLowerCase().contains(text.trim().toLowerCase())) {
         searchResult.add(searchText);
       }
     }

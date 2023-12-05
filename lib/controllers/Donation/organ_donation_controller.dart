@@ -7,11 +7,15 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
+import '../../models/donation_model.dart';
+
 class OrganDonationController extends GetxController {
+
+
 
   RxBool isLoading = false.obs;
   RxString token="".obs;
-  RxList<NotificationModel> goodNewsList = <NotificationModel>[].obs;
+  RxList<DonationModel> organDonationList = <DonationModel>[].obs;
 
   @override
   void onInit() async {
@@ -20,10 +24,10 @@ class OrganDonationController extends GetxController {
     if (token.value == "") {
       token.value =   GetStorage().read(BaseUrl.Authorizetoken).toString();
     }
-    getGoodNews();
+    getOrganDonation();
   }
 
-  Future<void> getGoodNews() async {
+  Future<void> getOrganDonation() async {
     isLoading.value = true;
     bool isInternet = await Constants.isInternetAvail();
     if (!isInternet) {
@@ -40,9 +44,9 @@ class OrganDonationController extends GetxController {
       return;
     }
 
-    var goodNewsResponse = await APIProvider().getGoodNews(token.value);
-    if (goodNewsResponse.isNotEmpty) {
-      goodNewsList.addAll(goodNewsResponse);
+    var organDonationResponse = await APIProvider().getOrganDonation(token.value);
+    if (organDonationResponse.isNotEmpty) {
+      organDonationList.addAll(organDonationResponse);
       isLoading.value = false;
     }
     else {

@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:community_app/common/constant.dart';
 import 'package:community_app/common/themeService.dart';
+import 'package:community_app/controllers/MarkSheetController/marksheet_controller.dart';
 import 'package:community_app/models/job_model.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,7 @@ class AddMarksheetController extends GetxController {
   RxBool isLoading = false.obs;
   RxString token="".obs;
 
-
+  MarksheetController marksheetController = Get.put(MarksheetController());
 
   Rx<TextEditingController> studentNameController = TextEditingController().obs;
   Rx<TextEditingController> mobileNumberController = TextEditingController().obs;
@@ -115,8 +116,13 @@ class AddMarksheetController extends GetxController {
 
         selectedFile.value = null;
         selectedMediumType.value = "";
+        studentNameController.value.clear();
+        mobileNumberController.value.clear();
+        qualificationController.value.clear();
+        villageController.value.clear();
 
-
+         marksheetController.marksheetList.clear();
+         marksheetController.getMarksheet();
 
         Get.back();
       }else{

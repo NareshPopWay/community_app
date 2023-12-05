@@ -1,7 +1,7 @@
 import 'package:community_app/common/api_constant.dart';
 import 'package:community_app/common/api_provider.dart';
 import 'package:community_app/common/constant.dart';
-import 'package:community_app/models/notification_model.dart';
+import 'package:community_app/models/donation_model.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -11,7 +11,7 @@ class BloodDonationController extends GetxController {
 
   RxBool isLoading = false.obs;
   RxString token="".obs;
-  RxList<NotificationModel> goodNewsList = <NotificationModel>[].obs;
+  RxList<DonationModel> bloodDonationList = <DonationModel>[].obs;
 
   @override
   void onInit() async {
@@ -20,10 +20,10 @@ class BloodDonationController extends GetxController {
     if (token.value == "") {
       token.value =   GetStorage().read(BaseUrl.Authorizetoken).toString();
     }
-    getGoodNews();
+    getBloodDonation();
   }
 
-  Future<void> getGoodNews() async {
+  Future<void> getBloodDonation() async {
     isLoading.value = true;
     bool isInternet = await Constants.isInternetAvail();
     if (!isInternet) {
@@ -40,9 +40,9 @@ class BloodDonationController extends GetxController {
       return;
     }
 
-    var goodNewsResponse = await APIProvider().getGoodNews(token.value);
-    if (goodNewsResponse.isNotEmpty) {
-      goodNewsList.addAll(goodNewsResponse);
+    var bloodDonationResponse = await APIProvider().getBloodDonation(token.value);
+    if (bloodDonationResponse.isNotEmpty) {
+      bloodDonationList.addAll(bloodDonationResponse);
       isLoading.value = false;
     }
     else {

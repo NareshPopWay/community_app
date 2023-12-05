@@ -41,7 +41,7 @@ class BusinessController extends GetxController {
       return;
     }
     for (var searchText in list) {
-      if ((searchText.samajId.toString().trim()).toLowerCase().contains(text.trim().toLowerCase()) || (searchText.memberId.toString().trim()).toLowerCase().contains(text.trim().toLowerCase())||(searchText.mobileNumber.toString().trim()).toLowerCase().contains(text.trim().toLowerCase())) {
+      if ((searchText.samajId.toString().trim()).toLowerCase().contains(text.trim().toLowerCase()) || (searchText.memberId.toString().trim()).toLowerCase().contains(text.trim().toLowerCase())||(searchText.mobileNumber.toString().trim()).toLowerCase().contains(text.trim().toLowerCase())||(searchText.memberName.toString().trim()).toLowerCase().contains(text.trim().toLowerCase())||(searchText.village.toString().trim()).toLowerCase().contains(text.trim().toLowerCase())) {
         searchResult.add(searchText);
       }
     }

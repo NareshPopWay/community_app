@@ -87,8 +87,10 @@ class HomeScreen extends GetView<AuthController> {
                           controller.token.value = GetStorage().read(BaseUrl.LoginAuthorizetoken).toString();
                           log('Token ${controller.token.value}');
                           if(controller.token.value == ''){
+                            Get.back();
                             Get.toNamed(Routes.login);
                           }else{
+                            Get.back();
                             Get.toNamed(Routes.familyMember);
                           }
                         },
@@ -129,6 +131,7 @@ class HomeScreen extends GetView<AuthController> {
                       // ),
                       InkWell(
                         onTap: () {
+                          Get.back();
                           Get.toNamed(Routes.marriage);
                         },
                         child: ListTile(
@@ -152,6 +155,7 @@ class HomeScreen extends GetView<AuthController> {
                       ),
                       InkWell(
                         onTap: () {
+                          Get.back();
                           Get.toNamed(Routes.job);
                         },
                         child: ListTile(
@@ -175,6 +179,7 @@ class HomeScreen extends GetView<AuthController> {
                       ),
                       InkWell(
                         onTap: () {
+                          Get.back();
                           Get.toNamed(Routes.business);
                         },
                         child: ListTile(
@@ -198,6 +203,7 @@ class HomeScreen extends GetView<AuthController> {
                       ),
                       InkWell(
                         onTap: () {
+                          Get.back();
                           Get.toNamed(Routes.advertisement);
                         },
                         child: ListTile(
@@ -244,6 +250,7 @@ class HomeScreen extends GetView<AuthController> {
                       // ),
                       InkWell(
                         onTap: () {
+                          Get.back();
                           Get.toNamed(Routes.donation);
                         },
                         child: ListTile(
@@ -267,7 +274,8 @@ class HomeScreen extends GetView<AuthController> {
                       ),
                       InkWell(
                         onTap: () {
-
+                          Get.back();
+                          Get.toNamed(Routes.request);
                         },
                         child: ListTile(
                           title: Text(
@@ -290,6 +298,7 @@ class HomeScreen extends GetView<AuthController> {
                       ),
                       InkWell(
                         onTap: () {
+                          Get.back();
                           Get.toNamed(Routes.marksheet);
                         },
                         child: ListTile(
@@ -312,6 +321,7 @@ class HomeScreen extends GetView<AuthController> {
                       ),
                       InkWell(
                         onTap: () {
+                          Get.back();
                           Get.toNamed(Routes.feedBack);
                         },
                         child: ListTile(

@@ -13,7 +13,7 @@ class BaseUrl{
 
   //Url Of API
   static String login = "${comman_string}Admin/Users/authenticate";
-  static String GetMember = "${comman_string}FamilyMemberView/GetServerViewList"; // ?page=1&pageCount=1
+  static String GetMember = "${comman_string}Member/GetServerViewList"; // ?page=1&pageCount=1
   static String AddMember = "${comman_string}Member/Save";
   static String SaveMemberImage = "${comman_string}Member/SaveImage";
   static String NotificationType = "${comman_string}Comman/GetList?Id=1";
@@ -24,7 +24,7 @@ class BaseUrl{
   static String GetGovNews = "${comman_string}Notification/GetGovernmentNews";
   static String GetOtherNews = "${comman_string}Notification/GetOtherNews";
   static String SaveNotificationImage = "${comman_string}Notification/SaveImage";
-  static String GetFamilyMember = "${comman_string}FamilyMember/GetViewList";
+  static String GetFamilyMember = "${comman_string}FamilyMember/GetServerViewList";
   static String AddFamilyMember = "${comman_string}FamilyMember/Save";
   static String SaveFamilyMemberImage = "${comman_string}FamilyMember/SaveImage";
   static String DeleteMember = "${comman_string}FamilyMember/Delete?ID=";
@@ -43,13 +43,13 @@ class BaseUrl{
   static String GetMedicalRequest = "${comman_string}Request/MedicalHelp";
   static String GetScholarshipRequest = "${comman_string}Request/Scholarship";
   static String SaveJobImage = "${comman_string}Job/SaveImage";
-  static String GetJob = "${comman_string}Job/GetViewList";
+  static String GetJob = "${comman_string}Job/GetServerViewList";
   static String AddJob = "${comman_string}Job/Save";
   static String SaveBusinessImage = "${comman_string}Business/SaveImage";
-  static String GetBusiness = "${comman_string}Business/GetViewList";
+  static String GetBusiness = "${comman_string}Business/GetServerViewList";
   static String AddBusiness = "${comman_string}Business/Save";
   static String SaveAdvertisementImage = "${comman_string}Advertisement/SaveImage";
-  static String GetAdvertisement = "${comman_string}Advertisement/GetViewList";
+  static String GetAdvertisement = "${comman_string}Advertisement/GetServerViewList";
   static String AddAdvertisement = "${comman_string}Advertisement/Save";
   static String SaveMarriageImage = "${comman_string}Marriage/SaveImage";
   static String GetMarriage = "${comman_string}Marriage/GetViewList";
@@ -57,6 +57,6 @@ class BaseUrl{
   static String GetFeedback = "${comman_string}Feedback/GetViewList";
   static String AddFeedback = "${comman_string}Feedback/Save";
   static String SaveMarkSheetImage = "${comman_string}Marksheet/SaveImage";
-  static String GetMarkSheet = "${comman_string}Marksheet/GetViewList";
+  static String GetMarkSheet = "${comman_string}Marksheet/GetServerViewList";
   static String AddMarkSheet = "${comman_string}Marksheet/Save";
 }

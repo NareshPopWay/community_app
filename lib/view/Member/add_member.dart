@@ -4,10 +4,14 @@ import 'package:community_app/controllers/MemberController/member_controller.dar
 import 'package:community_app/models/PMemberModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class AddMemberScreen extends GetView<MemberController> {
+import '../../common/spacing.dart';
+import '../../controllers/MemberController/add_member_controller.dart';
+
+class AddMemberScreen extends GetView<AddMemberController> {
   const AddMemberScreen({Key? key}) : super(key: key);
 
   @override
@@ -47,6 +51,50 @@ class AddMemberScreen extends GetView<MemberController> {
               key: controller.key,
               child: Column(
                 children: <Widget>[
+
+                  InkWell(
+                      onTap: () {
+                        controller.pickFile();
+                        // _showPicker(context);
+                      },
+                      child: controller.selectedFile.value == null
+                          ? CircleAvatar(
+                        radius: 62,
+                        backgroundColor: ThemeService.primaryColor,
+                        child: CircleAvatar(
+                          radius: 60,
+                          backgroundColor: Colors.white,
+                          child: CircleAvatar(
+                            radius: 50,
+                            backgroundColor: ThemeService.primaryColor,
+                            child: Image.asset(
+                              "assets/icon/ic_camera.png",
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      )
+                          : Container(
+                        width: Get.width * 0.30,
+                        height: Get.width * 0.30,
+                        decoration: BoxDecoration(
+                          color: ThemeService.white,
+                          //shape: BoxShape.circle,
+                          borderRadius: BorderRadius.circular(AppSpacings.s100),
+                          border: Border.all(color: ThemeService.primaryColor,width:2),
+                        ),
+                        child: ClipRRect(
+                            borderRadius: BorderRadius.circular(62),
+                            child: Image.file(controller.selectedFile.value!,
+                              fit: BoxFit.cover,
+                            )
+                        ),
+                      )
+
+                  ),
+                  SizedBox(
+                    height: 15.0,
+                  ),
                   SizedBox(
                     height: 15.0,
                   ),
@@ -344,29 +392,27 @@ class AddMemberScreen extends GetView<MemberController> {
                   SizedBox(
                     height: 30,
                   ),
+                  if (controller.isLoading.value == false)
                   GestureDetector(
                     onTap: () {
                       if (controller.key.currentState!.validate()) {
+                        controller.isLoading.value = true;
                         controller.key.currentState!.save();
-                        APIProvider().createMember(PMember(
-                            memberName: controller.memberNameController.value.text,
-                            address: controller.addressController.value.text,
-                            area: controller.areaController.value.text,
-                            village: controller.villageController.value.text,
-                            sakhe: controller.sakheController.value.text,
-                            mobileNumber: controller.mobileNumberController.value.text,
-                            username: controller.usernameController.value.text,
-                            password: controller.passwordController.value.text
-                        ));
-                        controller.memberNameController.value.clear();
-                        controller.addressController.value.clear();
-                        controller.areaController.value.clear();
-                        controller.villageController.value.clear();
-                        controller.sakheController.value.clear();
-                        controller.mobileNumberController.value.clear();
-                        controller.usernameController.value.clear();
-                        controller.passwordController.value.clear();
-                        Navigator.pop(context) ;
+                        if(controller.selectedFile.value == null){
+                          controller.isLoading.value = false;
+                          Fluttertoast.showToast(
+                              msg: "Please select Image",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.CENTER,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: Colors.red,
+                              textColor: Colors.white,
+                              fontSize: 16.0);
+                        }else{
+                          controller.addMember();
+                        }
+                      }else{
+                        controller.isLoading.value = false;
                       }
                      },
                     child: Container(
@@ -388,7 +434,10 @@ class AddMemberScreen extends GetView<MemberController> {
                         child: Text("Register Member", style: GoogleFonts.aBeeZee(fontSize: 18.0, fontWeight: FontWeight.bold, color: Colors.white),),
                       ),
                     ),
-                  ),
+                  )
+                 else CircularProgressIndicator(
+                  backgroundColor: Colors.white,
+                  valueColor: AlwaysStoppedAnimation<Color>(ThemeService.primaryColor)),
                 ],
               ),
             ),

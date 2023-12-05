@@ -239,6 +239,15 @@ class AddNotificationScreen extends GetView<AddNotificationController> {
                                backgroundColor: Colors.red,
                                textColor: Colors.white,
                                fontSize: 16.0);
+                         }else if(controller.selectedNotificationItem.isEmpty){
+                           Fluttertoast.showToast(
+                               msg: "Please select NotificationType",
+                               toastLength: Toast.LENGTH_SHORT,
+                               gravity: ToastGravity.CENTER,
+                               timeInSecForIosWeb: 1,
+                               backgroundColor: Colors.red,
+                               textColor: Colors.white,
+                               fontSize: 16.0);
                          }else{
                            controller.addNotification();
                          }

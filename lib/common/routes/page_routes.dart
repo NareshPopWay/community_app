@@ -1,4 +1,7 @@
 import 'package:community_app/binders/Business_Binders/business_binder.dart';
+import 'package:community_app/binders/Donation_Binders/add_donation_binder.dart';
+import 'package:community_app/binders/Donation_Binders/donation_detail_binder.dart';
+import 'package:community_app/binders/FamilyMemberController/edit_family_member_binder.dart';
 import 'package:community_app/binders/FeedBack/add_feedback_binder.dart';
 import 'package:community_app/binders/FeedBack/feedback_binder.dart';
 import 'package:community_app/binders/Marksheet_Binders/marksheet_binder.dart';
@@ -9,7 +12,10 @@ import 'package:community_app/binders/Notification_Binder/gov_news_binder.dart';
 import 'package:community_app/binders/Notification_Binder/member_detail_binder.dart';
 import 'package:community_app/binders/Notification_Binder/ohter_news_binder.dart';
 import 'package:community_app/binders/Notification_Binder/sad_news_binder.dart';
-import 'package:community_app/binders/add_family_member_binder.dart';
+import 'package:community_app/binders/RequestBinder/other_request_binder.dart';
+import 'package:community_app/binders/RequestBinder/request_binder.dart';
+import 'package:community_app/binders/RequestBinder/request_detail_binder.dart';
+import 'package:community_app/binders/FamilyMemberController/add_family_member_binder.dart';
 import 'package:community_app/binders/add_member_binder.dart';
 import 'package:community_app/binders/auth_binder.dart';
 import 'package:community_app/binders/marriage_Binders/add_marriage_binder.dart';
@@ -21,8 +27,12 @@ import 'package:community_app/view/Drawer/Advertisement/add_advertisement.dart';
 import 'package:community_app/view/Drawer/Advertisement/advertisement_screen.dart';
 import 'package:community_app/view/Drawer/Business/add_business.dart';
 import 'package:community_app/view/Drawer/Business/business_screen.dart';
+import 'package:community_app/view/Drawer/Donation/add_donation_screen.dart';
+import 'package:community_app/view/Drawer/Donation/donation_detail_screen.dart';
 import 'package:community_app/view/Drawer/Donation/donation_screen.dart';
 import 'package:community_app/view/Drawer/FamilyMember/add_family_member.dart';
+import 'package:community_app/view/Drawer/FamilyMember/edit_family_member_screen.dart';
+import 'package:community_app/view/Drawer/FamilyMember/family_member_detail_screen.dart';
 import 'package:community_app/view/Drawer/FamilyMember/family_member_screen.dart';
 import 'package:community_app/view/Drawer/FeedBack/add_feedback.dart';
 import 'package:community_app/view/Drawer/FeedBack/feedback_screen.dart';
@@ -30,6 +40,12 @@ import 'package:community_app/view/Drawer/Marksheet/marksheet_screen.dart';
 import 'package:community_app/view/Drawer/Marriage/add_marriage_screen.dart';
 import 'package:community_app/view/Drawer/Marriage/marriage_details_screen.dart';
 import 'package:community_app/view/Drawer/Marriage/marriage_screen.dart';
+import 'package:community_app/view/Drawer/Request/add_request_screen.dart';
+import 'package:community_app/view/Drawer/Request/medical_request_screen.dart';
+import 'package:community_app/view/Drawer/Request/other_request.dart';
+import 'package:community_app/view/Drawer/Request/request_detail_screen.dart';
+import 'package:community_app/view/Drawer/Request/request_screen.dart';
+import 'package:community_app/view/Drawer/Request/scholarship_request_screen.dart';
 import 'package:community_app/view/Drawer/job/add_job_screen.dart';
 import 'package:community_app/view/Drawer/job/job_detail_screen.dart';
 import 'package:community_app/view/Drawer/job/job_screen.dart';
@@ -54,12 +70,16 @@ import '../../binders/Donation_Binders/donation_binder.dart';
 import '../../binders/Donation_Binders/money_donation_binder.dart';
 import '../../binders/Donation_Binders/organ_donation_binder.dart';
 import '../../binders/Donation_Binders/other_donation_binder.dart';
+import '../../binders/FamilyMemberController/familymember_detail_binder.dart';
 import '../../binders/Job_Binders/add_job_binder.dart';
 import '../../binders/Job_Binders/job_binder.dart';
 import '../../binders/Job_Binders/job_detail_binder.dart';
 import '../../binders/Marksheet_Binders/add_marksheet_binder.dart';
 import '../../binders/Notification_Binder/notification_details_binder.dart';
-import '../../binders/family_member_binder.dart';
+import '../../binders/RequestBinder/add_request_binder.dart';
+import '../../binders/RequestBinder/medical_request_binder.dart';
+import '../../binders/RequestBinder/scholarship_request_binder.dart';
+import '../../binders/FamilyMemberController/family_member_binder.dart';
 import '../../view/Drawer/Advertisement/advertisement_detail_screen.dart';
 import '../../view/Drawer/Donation/blood_donation_screen.dart';
 import '../../view/Drawer/Donation/money_donation_screen.dart';
@@ -139,6 +159,16 @@ class PageRoutes {
       name: Routes.familyMember,
       page: () => FamilyMemberScreen(),
       binding: FamilyMemberBinder(),
+     ),
+  GetPage(
+      name: Routes.editFamilyMember,
+      page: () => EditFamilyMemberScreen(),
+      binding: EditFamilyMemberBinder(),
+     ),
+    GetPage(
+      name: Routes.familyMemberDetail,
+      page: () => FamilyMemberDetailsScreen(),
+      binding: FamilyMemberDetailBinder(),
      ),
   GetPage(
       name: Routes.marriage,
@@ -255,5 +285,51 @@ class PageRoutes {
       page: () => OtherDonationScreen(),
       binding: OtherDonationBinder(),
     ),
+    GetPage(
+      name: Routes.donationDetail,
+      page: () => DonationDetailScreen(),
+      binding: DonationDetailBinder(),
+    ),
+
+  GetPage(
+      name: Routes.addDonation,
+      page: () => AddDonationScreen(),
+      binding: AddDonationBinder(),
+    ),
+
+    GetPage(
+      name: Routes.request,
+      page: () => RequestScreen(),
+      binding: RequestBinder(),
+    ),
+
+    GetPage(
+      name: Routes.medicalRequest,
+      page: () => MedicalRequestScreen(),
+      binding: MedicalRequestBinder(),
+    ),
+
+    GetPage(
+      name: Routes.scholarshipRequest,
+      page: () => ScholarshipRequestScreen(),
+      binding: ScholarshipRequestBinder(),
+    ),
+
+    GetPage(
+      name: Routes.otherRequest,
+      page: () => OtherRequestScreen(),
+      binding: OtherRequestBinder(),
+    ),
+   GetPage(
+      name: Routes.requestDetail,
+      page: () => RequestDetailScreen(),
+      binding: RequestDetailBinder(),
+    ),
+  GetPage(
+      name: Routes.addRequest,
+      page: () => AddRequestScreen(),
+      binding: AddRequestBinder(),
+    ),
+
   ];
 }

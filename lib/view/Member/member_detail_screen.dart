@@ -37,27 +37,24 @@ class MemberDetailsScreen extends GetView<MemberDetailController> {
           shrinkWrap: true,
           physics: const BouncingScrollPhysics(parent: BouncingScrollPhysics()),
           children: [
-            Padding(
-              padding: const EdgeInsets.only(top:5.0,left: 5.0,bottom: 5.0),
-              child: Hero(
-                tag: controller.model!.familyMemberId,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 3.0),
-                  child: CircleAvatar(
-                    radius: 120.0,
-                    backgroundImage: NetworkImage(
-                      BaseUrl.ImageURL + controller.model!.fileData,
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            // Padding(
+            //   padding: const EdgeInsets.only(top:5.0,left: 5.0,bottom: 5.0),
+            //   child: Padding(
+            //     padding: const EdgeInsets.only(top: 3.0),
+            //     child: CircleAvatar(
+            //       radius: 120.0,
+            //       backgroundImage: NetworkImage(
+            //         BaseUrl.ImageURL + controller.model!.fileData,
+            //       ),
+            //     ),
+            //   ),
+            // ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 Text(
                   // "Sabhasad Number : ${controller.model!.sabhasadno}",
-                  "${controller.model!.familyMemberId}",
+                  "${controller.model!.memberId}",
                   style: GoogleFonts.aBeeZee(
                       fontSize: 35.0,
                       fontWeight: FontWeight.w900,
@@ -66,7 +63,7 @@ class MemberDetailsScreen extends GetView<MemberDetailController> {
                 ),
                 Text(
                   // "Member Name : \n ${controller.model!.membername}",
-                  "${controller.model!.familyMemberName}",
+                  "${controller.model!.memberName}",
                   style: GoogleFonts.aBeeZee(
                       fontSize: 25.0, fontWeight: FontWeight.bold),
                   textAlign: TextAlign.center,
@@ -211,8 +208,8 @@ class MemberDetailsScreen extends GetView<MemberDetailController> {
                                     fontWeight: FontWeight.w700),
                               ),
                               Container(
-                                child: Text(
-                                  "${DateFormat('dd/MM/yyyy').format(controller.model!.birthDate)}",
+                                child: Text( controller.model!.birthDate != null ?
+                                  "${DateFormat('dd/MM/yyyy').format(controller.model!.birthDate)}":'',
                                   style: GoogleFonts.aBeeZee(
                                       fontSize: 13,
                                       fontWeight: FontWeight.w400),

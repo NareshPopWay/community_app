@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:community_app/common/constant.dart';
 import 'package:community_app/common/themeService.dart';
+import 'package:community_app/controllers/FamilyMemberController/family_member_controller.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -22,6 +23,7 @@ class AddFamilyMemberController extends GetxController {
   RxBool isLoading = false.obs;
   RxString token="".obs;
 
+  FamilyMemberController familyMemberController = Get.put(FamilyMemberController());
 
   Rx<TextEditingController> dateinput = TextEditingController().obs;
   Rx<TextEditingController> familymemberNameController = TextEditingController().obs;
@@ -164,7 +166,7 @@ class AddFamilyMemberController extends GetxController {
             bloodGroup: selectedBloodGroup.value,
             samajId: 0,
             familyMemberId:0,
-            isAdmin: '',
+            isAdmin: false,
             memberId: 0,
             sakhe:'' ,
             village: ''
@@ -183,6 +185,32 @@ class AddFamilyMemberController extends GetxController {
             fontSize: 16.0);
 
         selectedFile.value = null;
+        selectedGenderId.value ="";
+        selectedGender.value ="";
+
+        selectedRelationId.value ="";
+        selectedRelation.value="";
+
+        selectedEducation.value="";
+        selectedEducationId.value="";
+
+        selectedOccupation.value ="";
+        selectedOccupationId.value="";
+
+        selectedBloodGroup.value="";
+        selectedBloodGroupId.value="";
+
+        dateinput.value.clear();
+        familymemberNameController.value.clear();
+        addressController.value.clear();
+        areaController.value.clear();
+        mobileNumberController.value.clear();
+        whatsappNumberController.value.clear();
+        emailController.value.clear();
+
+        familyMemberController.familyMemberList.clear();
+        familyMemberController.getFamilyMember();
+
         Get.back();
       }else{
         isLoading.value = false;

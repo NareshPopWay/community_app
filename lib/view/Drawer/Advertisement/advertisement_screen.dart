@@ -292,7 +292,10 @@ class AdvertisementScreen extends GetView<AdvertisementController> {
                                                         .aboutAdvertisement
                                                         !=
                                                         null
-                                                        ? "${controller.advertisementList[index]
+                                                        ? controller.advertisementList[index]
+                                                        .aboutAdvertisement.length >= 2 ? controller.advertisementList[index]
+                                                        .aboutAdvertisement
+                                                        :"${controller.advertisementList[index]
                                                         .aboutAdvertisement.substring(0, 25)}....."
                                                         : '',
                                                     overflow:

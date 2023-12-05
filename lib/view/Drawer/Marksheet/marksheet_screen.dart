@@ -135,7 +135,7 @@ class MarksheetScreen extends GetView<MarksheetController> {
                     : controller.marksheetList.value.isEmpty
                     ? Center(
                   child: Text(
-                    'Job\'s Not Available',
+                    'Marksheet\'s Not Available',
                     style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.w400,

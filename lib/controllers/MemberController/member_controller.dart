@@ -87,7 +87,7 @@ class MemberController extends GetxController {
       return;
     }
     for (var searchText in list) {
-      if ((searchText.samajId.toString().trim()).toLowerCase().contains(text.trim().toLowerCase()) || (searchText.memberId.toString().trim()).toLowerCase().contains(text.trim().toLowerCase())||(searchText.familyMemberId.toString().trim()).toLowerCase().contains(text.trim().toLowerCase())||(searchText.familyMemberName.toString().trim()).toLowerCase().contains(text.trim().toLowerCase())||(searchText.address.toString().trim()).toLowerCase().contains(text.trim().toLowerCase())||(searchText.birthDate.toString().trim()).toLowerCase().contains(text.trim().toLowerCase())||(searchText.mobileNumber.toString().trim()).toLowerCase().contains(text.trim().toLowerCase())||(searchText.sakhe.toString().trim()).toLowerCase().contains(text.trim().toLowerCase())) {
+      if ((searchText.samajId.toString().trim()).toLowerCase().contains(text.trim().toLowerCase()) || (searchText.memberId.toString().trim()).toLowerCase().contains(text.trim().toLowerCase())||(searchText.memberName.toString().trim()).toLowerCase().contains(text.trim().toLowerCase())||(searchText.memberId.toString().trim()).toLowerCase().contains(text.trim().toLowerCase())||(searchText.address.toString().trim()).toLowerCase().contains(text.trim().toLowerCase())||(searchText.birthDate.toString().trim()).toLowerCase().contains(text.trim().toLowerCase())||(searchText.mobileNumber.toString().trim()).toLowerCase().contains(text.trim().toLowerCase())||(searchText.sakhe.toString().trim()).toLowerCase().contains(text.trim().toLowerCase())) {
         searchResult.add(searchText);
       }
     }

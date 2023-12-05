@@ -482,6 +482,7 @@ class AddFamilyMemberScreen extends GetView<AddFamilyMemberController> {
                   SizedBox(
                     height: 15.0,
                   ),
+                  if (controller.isLoading.value == false)
                   GestureDetector(
                     onTap: () {
                       if (controller.key.currentState!.validate()) {
@@ -491,6 +492,66 @@ class AddFamilyMemberScreen extends GetView<AddFamilyMemberController> {
                           controller.isLoading.value = false;
                           Fluttertoast.showToast(
                               msg: "Please select Image",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.CENTER,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: Colors.red,
+                              textColor: Colors.white,
+                              fontSize: 16.0);
+                        }else if(controller.selectedGender.isEmpty){
+                          controller.isLoading.value = false;
+                          Fluttertoast.showToast(
+                              msg: "Please select Gender",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.CENTER,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: Colors.red,
+                              textColor: Colors.white,
+                              fontSize: 16.0);
+                        }else if(controller.selectedRelation.isEmpty){
+                          controller.isLoading.value = false;
+                          Fluttertoast.showToast(
+                              msg: "Please select Relation",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.CENTER,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: Colors.red,
+                              textColor: Colors.white,
+                              fontSize: 16.0);
+                        }else if(controller.selectedEducation.isEmpty){
+                          controller.isLoading.value = false;
+                          Fluttertoast.showToast(
+                              msg: "Please select Education",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.CENTER,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: Colors.red,
+                              textColor: Colors.white,
+                              fontSize: 16.0);
+                        }else if(controller.selectedMarital.isEmpty){
+                          controller.isLoading.value = false;
+                          Fluttertoast.showToast(
+                              msg: "Please select MaritalStatus",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.CENTER,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: Colors.red,
+                              textColor: Colors.white,
+                              fontSize: 16.0);
+                        }else if(controller.selectedOccupation.isEmpty){
+                          controller.isLoading.value = false;
+                          Fluttertoast.showToast(
+                              msg: "Please select Occupation",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.CENTER,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: Colors.red,
+                              textColor: Colors.white,
+                              fontSize: 16.0);
+                        }else if(controller.selectedBloodGroup.isEmpty){
+                          controller.isLoading.value = false;
+                          Fluttertoast.showToast(
+                              msg: "Please select BloodGroup",
                               toastLength: Toast.LENGTH_SHORT,
                               gravity: ToastGravity.CENTER,
                               timeInSecForIosWeb: 1,
@@ -522,7 +583,10 @@ class AddFamilyMemberScreen extends GetView<AddFamilyMemberController> {
                         child: Text("Add Member", style: GoogleFonts.aBeeZee(fontSize: 18.0, fontWeight: FontWeight.bold, color: Colors.white),),
                       ),
                     ),
-                  ),
+                  )
+                 else CircularProgressIndicator(
+                 backgroundColor: Colors.white,
+                 valueColor: AlwaysStoppedAnimation<Color>(ThemeService.primaryColor)),
                 ],),
             ),
           ),

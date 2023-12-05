@@ -19,9 +19,11 @@ import 'package:http/http.dart' as http;
 
 import '../models/addvertisement_model.dart';
 import '../models/business_model.dart';
+import '../models/donation_model.dart';
 import '../models/feedback_model.dart';
 import '../models/job_model.dart';
 import '../models/marksheet_model.dart';
+import '../models/request_model.dart';
 
 class APIProvider {
 
@@ -89,7 +91,7 @@ class APIProvider {
     return list;
   }
 
-  Future createMember(PMember members) async {
+  Future<bool> createMember(PMember members) async {
     bool isInternet = await Constants.isInternetAvail();
     if (!isInternet) {
       Constants.ErrorSnackBar(message: "No Internet connection");
@@ -101,7 +103,6 @@ class APIProvider {
           backgroundColor: Colors.redAccent,
           textColor: Colors.white,
           fontSize: 16.0);
-      return;
     }
     String token = GetStorage().read(BaseUrl.Authorizetoken).toString();
     final response = await http.post(
@@ -116,14 +117,7 @@ class APIProvider {
     log(response.statusCode.toString());
     if (response.statusCode == 200) {
       //final data = PMember.fromJson(json.decode(response.body));
-      Fluttertoast.showToast(
-          msg: "Member Register SuccessFully..",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.green,
-          textColor: ThemeService.black,
-          fontSize: 16.0);
+     return true;
     } else {
       Fluttertoast.showToast(
           msg: "Something Went Wrong..",
@@ -133,6 +127,7 @@ class APIProvider {
           backgroundColor: Colors.red,
           textColor: Colors.white,
           fontSize: 16.0);
+      return false;
     }
   }
 
@@ -381,8 +376,8 @@ class APIProvider {
       responseJson = json.decode(response.body);
       log(response.body);
 
-      for (int i = 0; i < responseJson.length; i++) {
-        list.add(FamilyMemberModel.fromJson(responseJson[i]));
+      for (int i = 0; i < responseJson['value'].length; i++) {
+        list.add(FamilyMemberModel.fromJson(responseJson['value'][i]));
       }
     } on SocketException {
       Ui.ErrorSnackBar(title: 'No Internet connection');
@@ -390,6 +385,36 @@ class APIProvider {
       print("error ...getFamilyMember ...... $e");
     }
     return list;
+  }
+
+  Future<bool> deleteFamilyMember(String apiToken,String familyMemberId) async {
+    var responseJson;
+    try {
+      log(BaseUrl.DeleteMember+familyMemberId);
+
+      final response = await http.delete(
+          Uri.parse(
+            BaseUrl.DeleteMember+familyMemberId,
+          ),
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer $apiToken",
+          });
+      // responseJson = json.decode(response.body);
+      log(response.body);
+      // log(responseJson);
+      if (response.statusCode == 200) {
+       return true;
+      }else{
+        return false;
+      }
+
+    } on SocketException {
+      Ui.ErrorSnackBar(title: 'No Internet connection');
+    } catch (e) {
+      print("error ...getFamilyMember ...... $e");
+    }
+    return false;
   }
 
   Future<List<MarriageModel>> getMarriage(String apiToken) async {
@@ -478,6 +503,7 @@ class APIProvider {
       {required FamilyMemberModel members, required String apiToken}) async{
 
     try{
+      log(BaseUrl.AddFamilyMember);
       Map body= members.toJson();
       log('$body');
       final response = await http.post(
@@ -584,13 +610,13 @@ class APIProvider {
       responseJson = json.decode(response.body);
       log(response.statusCode.toString());
 
-      for (int i = 0; i < responseJson.length; i++) {
-        list.add(JobModel.fromJson(responseJson[i]));
+      for (int i = 0; i < responseJson['value'].length; i++) {
+        list.add(JobModel.fromJson(responseJson['value'][i]));
       }
     } on SocketException {
       Ui.ErrorSnackBar(title: 'No Internet connection');
     } catch (e) {
-      print("error ...getFamilyMember ...... $e");
+      print("error ...getJob ...... $e");
     }
     return list;
   }
@@ -659,8 +685,8 @@ class APIProvider {
       responseJson = json.decode(response.body);
       log(response.statusCode.toString());
 
-      for (int i = 0; i < responseJson.length; i++) {
-        list.add(BusinessModel.fromJson(responseJson[i]));
+      for (int i = 0; i < responseJson['value'].length; i++) {
+        list.add(BusinessModel.fromJson(responseJson['value'][i]));
       }
     } on SocketException {
       Ui.ErrorSnackBar(title: 'No Internet connection');
@@ -735,8 +761,8 @@ class APIProvider {
       responseJson = json.decode(response.body);
       log(response.statusCode.toString());
 
-      for (int i = 0; i < responseJson.length; i++) {
-        list.add(AdvertisementModel.fromJson(responseJson[i]));
+      for (int i = 0; i < responseJson['value'].length; i++) {
+        list.add(AdvertisementModel.fromJson(responseJson['value'][i]));
       }
     } on SocketException {
       Ui.ErrorSnackBar(title: 'No Internet connection');
@@ -810,8 +836,8 @@ class APIProvider {
       responseJson = json.decode(response.body);
       log(response.statusCode.toString());
 
-      for (int i = 0; i < responseJson.length; i++) {
-        list.add(MarksheetModel.fromJson(responseJson[i]));
+      for (int i = 0; i < responseJson['value'].length; i++) {
+        list.add(MarksheetModel.fromJson(responseJson['value'][i]));
       }
     } on SocketException {
       Ui.ErrorSnackBar(title: 'No Internet connection');
@@ -920,6 +946,394 @@ class APIProvider {
       debugPrint("Error $e");
     }
     return false;
+  }
+
+  Future<List<DonationModel>> getBloodDonation(String apiToken) async {
+    var responseJson;
+    List<DonationModel> list = [];
+    try {
+      log(BaseUrl.GetBloodDonation);
+
+      final response = await http.get(
+          Uri.parse(
+            BaseUrl.GetBloodDonation,
+          ),
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer $apiToken",
+          });
+      responseJson = json.decode(response.body);
+      log(response.body);
+
+      for (int i = 0; i < responseJson.length; i++) {
+        list.add(DonationModel.fromJson(responseJson[i]));
+      }
+    } on SocketException {
+      Ui.ErrorSnackBar(title: 'No Internet connection');
+    } catch (e) {
+      print("error ...GetBloodDonation ...... $e");
+    }
+    return list;
+  }
+
+  Future<List<DonationModel>> getMoneyDonation(String apiToken) async {
+    var responseJson;
+    List<DonationModel> list = [];
+    try {
+      log(BaseUrl.GetMoneyDonation);
+
+      final response = await http.get(
+          Uri.parse(
+            BaseUrl.GetMoneyDonation,
+          ),
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer $apiToken",
+          });
+      responseJson = json.decode(response.body);
+      log(response.body);
+
+      for (int i = 0; i < responseJson.length; i++) {
+        list.add(DonationModel.fromJson(responseJson[i]));
+      }
+    } on SocketException {
+      Ui.ErrorSnackBar(title: 'No Internet connection');
+    } catch (e) {
+      print("error ...GetMoneyDonation ...... $e");
+    }
+    return list;
+  }
+
+  Future<List<DonationModel>> getOrganDonation(String apiToken) async {
+    var responseJson;
+    List<DonationModel> list = [];
+    try {
+      log(BaseUrl.GetOrganDonation);
+
+      final response = await http.get(
+          Uri.parse(
+            BaseUrl.GetOrganDonation,
+          ),
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer $apiToken",
+          });
+      responseJson = json.decode(response.body);
+      log(response.body);
+
+      for (int i = 0; i < responseJson.length; i++) {
+        list.add(DonationModel.fromJson(responseJson[i]));
+      }
+    } on SocketException {
+      Ui.ErrorSnackBar(title: 'No Internet connection');
+    } catch (e) {
+      print("error ...GetOrganDonation ...... $e");
+    }
+    return list;
+  }
+
+  Future<List<DonationModel>> getOtherDonation(String apiToken) async {
+    var responseJson;
+    List<DonationModel> list = [];
+    try {
+      log(BaseUrl.GetOtherDonation);
+
+      final response = await http.get(
+          Uri.parse(
+            BaseUrl.GetOtherDonation,
+          ),
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer $apiToken",
+          });
+      responseJson = json.decode(response.body);
+      log(response.body);
+
+      for (int i = 0; i < responseJson.length; i++) {
+        list.add(DonationModel.fromJson(responseJson[i]));
+      }
+    } on SocketException {
+      Ui.ErrorSnackBar(title: 'No Internet connection');
+    } catch (e) {
+      print("error ...GetOtherDonation ...... $e");
+    }
+    return list;
+  }
+
+  Future<List<FieldItemValueModel>> getDonnerType() async {
+    var responseJson;
+    List<FieldItemValueModel> list = [];
+    try {
+      log(BaseUrl.donnerType);
+
+      final response = await http.get(
+          Uri.parse(
+            BaseUrl.donnerType,
+          ),
+          headers: {
+            "Content-Type": "application/json",
+          });
+      responseJson = json.decode(response.body);
+      log(response.body);
+      for (int i = 0; i < responseJson.length; i++) {
+        list.add(FieldItemValueModel.fromJson(responseJson[i]));
+      }
+    } on SocketException {
+      Ui.ErrorSnackBar(title: 'No Internet connection');
+    } catch (e) {
+      print("error ...getAllType ...... $e");
+    }
+    return list;
+  }
+
+
+  Future<bool> addDonation({
+    required String apiToken,
+    required String aboutDonation,
+    required String donationType,
+    required String fileData
+  }) async{
+
+    try{
+
+      Map body= {
+        "aboutDonation": aboutDonation,
+        "donationType": donationType,
+        "fileData": fileData,
+      };
+      log('$body');
+      final response = await http.post(
+        Uri.parse(BaseUrl.AddDonner),
+        headers: <String, String>{
+          "Content-Type": "application/json",
+          "Authorization": "Bearer $apiToken"
+        },
+        body: jsonEncode(
+            {
+              "aboutDonation": aboutDonation,
+              "donationType": int.parse(donationType),
+              "fileData": fileData,
+            }
+        ),
+      );
+      log('RESPONSE BODY: ${response.body}');
+      if (response.statusCode == 200) {
+        return true;
+      }else{
+        return false;
+      }
+    }catch (e) {
+      debugPrint("Error $e");
+    }
+    return false;
+  }
+
+  Future<String> saveDonationImage({required String apiToken,required String imageFile}) async{
+    var responseJson = '';
+
+    var request = http.MultipartRequest(
+        "POST", Uri.parse(BaseUrl.SaveDonnerImage));
+    request.headers.addAll({
+      "Authorization": "Bearer $apiToken"
+    });
+    request.files.add(await http.MultipartFile.fromPath('imageFile', imageFile));
+
+    http.StreamedResponse response = await request.send();
+    if (response.statusCode == 200) {
+      responseJson = await response.stream.bytesToString();
+      log('RESPONSE BODY: ${responseJson}');
+      return responseJson.toString();
+    }
+    return responseJson.toString();
+  }
+
+  Future<List<RequestModel>> getMedicalRequest(String apiToken) async {
+    var responseJson;
+    List<RequestModel> list = [];
+    try {
+      log(BaseUrl.GetMedicalRequest);
+
+      final response = await http.get(
+          Uri.parse(
+            BaseUrl.GetMedicalRequest,
+          ),
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer $apiToken",
+          });
+      responseJson = json.decode(response.body);
+      log(response.body);
+
+      for (int i = 0; i < responseJson.length; i++) {
+        list.add(RequestModel.fromJson(responseJson[i]));
+      }
+    } on SocketException {
+      Ui.ErrorSnackBar(title: 'No Internet connection');
+    } catch (e) {
+      print("error ...GetBloodDonation ...... $e");
+    }
+    return list;
+  }
+
+  Future<List<RequestModel>> getScholarshipRequest(String apiToken) async {
+    var responseJson;
+    List<RequestModel> list = [];
+    try {
+      log(BaseUrl.GetScholarshipRequest);
+
+      final response = await http.get(
+          Uri.parse(
+            BaseUrl.GetScholarshipRequest,
+          ),
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer $apiToken",
+          });
+      responseJson = json.decode(response.body);
+      log(response.body);
+
+      for (int i = 0; i < responseJson.length; i++) {
+        list.add(RequestModel.fromJson(responseJson[i]));
+      }
+    } on SocketException {
+      Ui.ErrorSnackBar(title: 'No Internet connection');
+    } catch (e) {
+      print("error ...GetBloodDonation ...... $e");
+    }
+    return list;
+  }
+
+  Future<List<RequestModel>> getOtherRequest(String apiToken) async {
+    var responseJson;
+    List<RequestModel> list = [];
+    try {
+      log(BaseUrl.GetOtherRequest);
+
+      final response = await http.get(
+          Uri.parse(
+            BaseUrl.GetOtherRequest,
+          ),
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer $apiToken",
+          });
+      responseJson = json.decode(response.body);
+      log(response.body);
+
+      for (int i = 0; i < responseJson.length; i++) {
+        list.add(RequestModel.fromJson(responseJson[i]));
+      }
+    } on SocketException {
+      Ui.ErrorSnackBar(title: 'No Internet connection');
+    } catch (e) {
+      print("error ...GetBloodDonation ...... $e");
+    }
+    return list;
+  }
+
+  Future<List<FieldItemValueModel>> getRequestType() async {
+    var responseJson;
+    List<FieldItemValueModel> list = [];
+    try {
+      log(BaseUrl.requestType);
+
+      final response = await http.get(
+          Uri.parse(
+            BaseUrl.requestType,
+          ),
+          headers: {
+            "Content-Type": "application/json",
+          });
+      responseJson = json.decode(response.body);
+      log(response.body);
+      for (int i = 0; i < responseJson.length; i++) {
+        list.add(FieldItemValueModel.fromJson(responseJson[i]));
+      }
+    } on SocketException {
+      Ui.ErrorSnackBar(title: 'No Internet connection');
+    } catch (e) {
+      print("error ...getRequestType ...... $e");
+    }
+    return list;
+  }
+
+
+  Future<bool> addRequest({
+    required String apiToken,
+    required String aboutRequest,
+    required String requestType,
+    required String fileData
+  }) async{
+
+    try{
+    log(BaseUrl.AddRequest);
+      Map body= {
+        "aboutRequest": aboutRequest,
+        "requestType": int.parse(requestType),
+        "fileData": fileData,
+      };
+      log('$body');
+      final response = await http.post(
+        Uri.parse(BaseUrl.AddRequest),
+        headers: <String, String>{
+          "Content-Type": "application/json",
+          "Authorization": "Bearer $apiToken"
+        },
+        body: jsonEncode({
+          "aboutRequest": aboutRequest,
+          "requestType": int.parse(requestType),
+          "fileData": fileData,
+        })
+      );
+      log('RESPONSE BODY: ${response.body}');
+      if (response.statusCode == 200) {
+        return true;
+      }else{
+        return false;
+      }
+    }catch (e) {
+      debugPrint("Error $e");
+    }
+    return false;
+  }
+
+  Future<String> saveRequestImage({required String apiToken,required String imageFile}) async{
+    var responseJson = '';
+
+    var request = http.MultipartRequest(
+        "POST", Uri.parse(BaseUrl.SaveRequestImage));
+    request.headers.addAll({
+      "Authorization": "Bearer $apiToken"
+    });
+    request.files.add(await http.MultipartFile.fromPath('imageFile', imageFile));
+
+    http.StreamedResponse response = await request.send();
+    if (response.statusCode == 200) {
+      responseJson = await response.stream.bytesToString();
+      log('RESPONSE BODY: ${responseJson}');
+      return responseJson.toString();
+    }
+    return responseJson.toString();
+  }
+
+
+  Future<String> saveMemberImage({required String apiToken,required String imageFile}) async{
+    var responseJson = '';
+
+    var request = http.MultipartRequest(
+        "POST", Uri.parse(BaseUrl.SaveMemberImage));
+    request.headers.addAll({
+      "Authorization": "Bearer $apiToken"
+    });
+    request.files.add(await http.MultipartFile.fromPath('imageFile', imageFile));
+
+    http.StreamedResponse response = await request.send();
+    if (response.statusCode == 200) {
+      responseJson = await response.stream.bytesToString();
+      log('RESPONSE BODY: ${responseJson}');
+      return responseJson.toString();
+    }
+    return responseJson.toString();
   }
 
 }

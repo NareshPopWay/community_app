@@ -157,23 +157,22 @@ class MemberScreen extends GetView<MemberController> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 5.0, left: 10, bottom: 5),
-                                      child: Container(
-                                        width: Get.height * 0.15,
-                                        height: Get.height * 0.15,
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(10),
-                                          image: DecorationImage(
-                                            image: NetworkImage(
-                                              BaseUrl.ImageURL +
-                                                  controller.memberList[index].fileData,
-                                            ),
-                                            fit: BoxFit.fill,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
+                                    // Padding(
+                                    //   padding: const EdgeInsets.only(top: 5.0, left: 10, bottom: 5),
+                                    //   child: Container(
+                                    //     width: Get.height * 0.15,
+                                    //     height: Get.height * 0.15,
+                                    //     decoration: BoxDecoration(
+                                    //       borderRadius: BorderRadius.circular(10),
+                                    //       image: DecorationImage(
+                                    //         image: NetworkImage(
+                                    //           BaseUrl.ImageURL + controller.memberList[index].fileData,
+                                    //         ),
+                                    //         fit: BoxFit.fill,
+                                    //       ),
+                                    //     ),
+                                    //   ),
+                                    // ),
                                     SizedBox(
                                       width: 10,
                                     ),
@@ -187,11 +186,10 @@ class MemberScreen extends GetView<MemberController> {
                                               Padding(
                                                 padding: EdgeInsets.all(10),
                                                 child: Text(
-                                                  controller.memberList[index]
-                                                      .familyMemberId
+                                                  controller.memberList[index].memberId
                                                       .toString() != null
                                                       ? controller.memberList[index]
-                                                      .familyMemberId
+                                                      .memberId
                                                       .toString()
                                                       : '',
                                                   style:
@@ -216,9 +214,9 @@ class MemberScreen extends GetView<MemberController> {
                                                   children: [
                                                     Text(
                                                       controller.memberList[index]
-                                                          .familyMemberName != null
+                                                          .memberName != null
                                                           ? controller.memberList[index]
-                                                          .familyMemberName
+                                                          .memberName
                                                           : '',
                                                       overflow:
                                                       TextOverflow
@@ -491,10 +489,10 @@ class MemberScreen extends GetView<MemberController> {
                                  padding: EdgeInsets.all(10),
                                  child: Text(
                                    memberSearchResult[index]
-                                       .familyMemberId
+                                       .memberId
                                        .toString() != null
                                        ? memberSearchResult[index]
-                                       .familyMemberId
+                                       .memberId
                                        .toString()
                                        : '',
                                    style:
@@ -519,9 +517,9 @@ class MemberScreen extends GetView<MemberController> {
                                    children: [
                                      Text(
                                        memberSearchResult[index]
-                                           .familyMemberName != null
+                                           .memberName != null
                                            ? memberSearchResult[index]
-                                           .familyMemberName
+                                           .memberName
                                            : '',
                                        overflow:
                                        TextOverflow
