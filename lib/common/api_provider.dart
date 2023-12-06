@@ -12,6 +12,7 @@ import 'package:community_app/models/field_item_value_model.dart';
 import 'package:community_app/models/marriage_model.dart';
 import 'package:community_app/models/member_model.dart';
 import 'package:community_app/models/notification_model.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_storage/get_storage.dart';
@@ -1397,6 +1398,34 @@ class APIProvider {
       return responseJson.toString();
     }
     return responseJson.toString();
+  }
+
+  Future<void> saveFCMToken() async {
+    var responseJson;
+    try {
+
+      String? firebaseToken;
+      firebaseToken = await FirebaseMessaging.instance.getToken();
+      log('FirebaseToken : $firebaseToken');
+      log(BaseUrl.AddToken);
+
+      final response = await http.post(
+        Uri.parse(BaseUrl.AddToken),
+        headers: {
+          "Content-Type":"application/json",
+        },
+        body: jsonEncode({
+          "SamajId": 1,
+          "Token1": firebaseToken,
+        })
+      );
+      responseJson = json.decode(response.body);
+      log('saveFCMToken :- $responseJson');
+    } on SocketException {
+      Ui.ErrorSnackBar(title: 'No Internet connection');
+    } catch (e) {
+      log("error ...saveFCMToken ...... $e");
+    }
   }
 
 }

@@ -48,7 +48,7 @@ class CommitteeScreen extends GetView<ComumitteeController> {
                     ),
                     margin: EdgeInsets.fromLTRB(AppSpacings.s15, 0, AppSpacings.s15, AppSpacings.s25),
                     elevation: 5.5, // Change this
-                    shadowColor: ThemeService.primaryColor,
+                    //shadowColor: ThemeService.primaryColor,
                     child: InkWell(
                       onTap: () {
                         // Navigator.of(context).push(MaterialPageRoute(

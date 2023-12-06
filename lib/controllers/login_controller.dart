@@ -10,6 +10,8 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 import '../common/themeService.dart';
+import 'MemberController/member_controller.dart';
+import 'NotificationController/notification_controller.dart';
 
 class LoginController extends GetxController {
 
@@ -22,6 +24,8 @@ class LoginController extends GetxController {
   Rx<TextEditingController> password = TextEditingController().obs;
 
   AuthController authController = Get.put(AuthController());
+  MemberController memberController = Get.put(MemberController());
+  NotificationController notificationController = Get.put(NotificationController());
 
   @override
   void onInit() async {
@@ -61,6 +65,8 @@ class LoginController extends GetxController {
           textColor: ThemeService.black,
           fontSize: 16.0);
        authController.userTypeId.value = GetStorage().read(BaseUrl.UserTypeID).toString();
+       memberController.userTypeId.value = GetStorage().read(BaseUrl.UserTypeID).toString();
+       notificationController.userTypeId.value = GetStorage().read(BaseUrl.UserTypeID).toString();
        Get.offNamed(Routes.home);
     }
     else {
@@ -106,6 +112,10 @@ class LoginController extends GetxController {
           fontSize: 16.0);
      // authController.token.value = GetStorage().read(BaseUrl.Authorizetoken).toString();
       authController.userTypeId.value = GetStorage().read(BaseUrl.UserTypeID).toString();
+      memberController.userTypeId.value = GetStorage().read(BaseUrl.UserTypeID).toString();
+      memberController.onInit();
+      notificationController.userTypeId.value = GetStorage().read(BaseUrl.UserTypeID).toString();
+      notificationController.onInit();
       Get.offNamed(Routes.home);
     }
     else {
