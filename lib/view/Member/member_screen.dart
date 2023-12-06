@@ -32,13 +32,13 @@ class MemberScreen extends GetView<MemberController> {
         //   ),
         //   centerTitle: true,
         // ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: controller.userTypeId.value == "1" ? FloatingActionButton(
         backgroundColor: ThemeService.primaryColor,
         onPressed: () {
           Get.toNamed(Routes.addMember);
         },
         child: Icon(MdiIcons.accountPlusOutline, color: Colors.white),
-      ),
+      ) : Container(),
        body:
       // controller.isLoading.value
       //     ? Center(
@@ -458,23 +458,23 @@ class MemberScreen extends GetView<MemberController> {
                  child: Row(
                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                    children: <Widget>[
-                     Padding(
-                       padding: const EdgeInsets.only(top: 5.0, left: 5, bottom: 5),
-                       child: Container(
-                         width: Get.height * 0.15,
-                         height: Get.height * 0.15,
-                         decoration: BoxDecoration(
-                           shape: BoxShape.circle,
-                           image: DecorationImage(
-                             image: NetworkImage(
-                               BaseUrl.ImageURL +
-                                   memberSearchResult[index].fileData,
-                             ),
-                             fit: BoxFit.fill,
-                           ),
-                         ),
-                       ),
-                     ),
+                     // Padding(
+                     //   padding: const EdgeInsets.only(top: 5.0, left: 5, bottom: 5),
+                     //   child: Container(
+                     //     width: Get.height * 0.15,
+                     //     height: Get.height * 0.15,
+                     //     decoration: BoxDecoration(
+                     //       shape: BoxShape.circle,
+                     //       image: DecorationImage(
+                     //         image: NetworkImage(
+                     //           BaseUrl.ImageURL +
+                     //               memberSearchResult[index].fileData,
+                     //         ),
+                     //         fit: BoxFit.fill,
+                     //       ),
+                     //     ),
+                     //   ),
+                     // ),
                      SizedBox(
                        width: 10,
                      ),

@@ -42,13 +42,13 @@ class JobScreen extends GetView<JobController> {
         ),
 
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: controller.userTypeId.value == "1" ?FloatingActionButton(
         backgroundColor: ThemeService.primaryColor,
         onPressed: () {
           Get.toNamed(Routes.addJob);
         },
         child: Icon(MdiIcons.notebookPlus, color: Colors.white),
-      ),
+      ):Container(),
       body:
       // controller.isLoading.value
       //     ? Center(

@@ -41,13 +41,13 @@ class BusinessScreen extends GetView<BusinessController> {
         ),
 
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: controller.userTypeId.value == "1" ?FloatingActionButton(
         backgroundColor: ThemeService.primaryColor,
         onPressed: () {
          Get.toNamed(Routes.addBusiness);
         },
         child: Icon(MdiIcons.notebookPlus, color: Colors.white),
-      ),
+      ):Container(),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,

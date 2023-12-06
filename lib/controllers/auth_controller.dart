@@ -20,32 +20,39 @@ class AuthController extends GetxController {
   RxInt selectedIndex = 0.obs;
   RxString pageTitle = ''.obs;
   RxString token = "".obs;
+  RxString userTypeId="".obs;
   @override
   void onInit() async {
     super.onInit();
-    token.value = GetStorage().read(BaseUrl.LoginAuthorizetoken).toString();
+    token.value = GetStorage().read(BaseUrl.Authorizetoken).toString();
     if (token.value == null) {
-      token.value =   GetStorage().read(BaseUrl.LoginAuthorizetoken).toString();
+      token.value = GetStorage().read(BaseUrl.Authorizetoken).toString();
     }
     log('Token ${token.value}');
     await Future.delayed(const Duration(milliseconds: 500));
     visible.value = true;
+    if(token.value == 'null'){
+      getToken();
+    }else{
+      checkUserIsLoginOrNot();
+    }
     onItemTap(selectedIndex.value);
-    getToken();
+
+
   }
 
   void onItemTap(int index) {
     if (index == 0) {
-        pageTitle.value = 'Member';
+        pageTitle.value = 'Home';
     }
     if (index == 1) {
-        pageTitle.value = 'Committee';
+        pageTitle.value = 'Member';
     }
     if (index == 2) {
-        pageTitle.value = 'Notification';
+        pageTitle.value = 'Committee';
     }
     if (index == 3) {
-        pageTitle.value = 'AboutUs';
+        pageTitle.value = 'Notification';
     }
   }
 
@@ -63,7 +70,7 @@ class AuthController extends GetxController {
         checkUserIsLoginOrNot();
       }else{
         Fluttertoast.showToast(
-            msg: "Invalid",
+            msg: "Something went wrong..",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.SNACKBAR,
             timeInSecForIosWeb: 1,
@@ -77,6 +84,11 @@ class AuthController extends GetxController {
   }
 
   checkUserIsLoginOrNot() async {
+    userTypeId.value = GetStorage().read(BaseUrl.UserTypeID).toString();
+    if (userTypeId.value == "") {
+      userTypeId.value = GetStorage().read(BaseUrl.UserTypeID).toString();
+    }
+    log('UserType ID  ${userTypeId.value}');
     await Future.delayed(const Duration(seconds: 3));
     displayWidget.value = const HomeScreen();
   }

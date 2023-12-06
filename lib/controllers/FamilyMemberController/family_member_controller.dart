@@ -13,14 +13,19 @@ class FamilyMemberController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isDeleteLoading = false.obs;
   RxString token="".obs;
+  RxString userTypeId="".obs;
   RxList<FamilyMemberModel> familyMemberList = <FamilyMemberModel>[].obs;
 
   @override
   void onInit() async {
     super.onInit();
-    token.value = GetStorage().read(BaseUrl.LoginAuthorizetoken).toString();
+    token.value = GetStorage().read(BaseUrl.Authorizetoken).toString();
     if (token.value == "") {
-      token.value =   GetStorage().read(BaseUrl.LoginAuthorizetoken).toString();
+      token.value =   GetStorage().read(BaseUrl.Authorizetoken).toString();
+    }
+    userTypeId.value = GetStorage().read(BaseUrl.UserTypeID).toString();
+    if (userTypeId.value == "") {
+      userTypeId.value = GetStorage().read(BaseUrl.UserTypeID).toString();
     }
     getFamilyMember();
   }

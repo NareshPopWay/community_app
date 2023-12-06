@@ -1,7 +1,6 @@
 import 'package:community_app/common/api_constant.dart';
 import 'package:community_app/common/api_provider.dart';
 import 'package:community_app/common/constant.dart';
-import 'package:community_app/models/family_member_model.dart';
 import 'package:community_app/models/marriage_model.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -12,6 +11,7 @@ class MarriageController extends GetxController {
 
   RxBool isLoading = false.obs;
   RxString token="".obs;
+  RxString userTypeId="".obs;
   RxList<MarriageModel> marriageList = <MarriageModel>[].obs;
 
   @override
@@ -20,6 +20,10 @@ class MarriageController extends GetxController {
     token.value = GetStorage().read(BaseUrl.Authorizetoken).toString();
     if (token.value == "") {
       token.value =   GetStorage().read(BaseUrl.Authorizetoken).toString();
+    }
+    userTypeId.value = GetStorage().read(BaseUrl.UserTypeID).toString();
+    if (userTypeId.value == "") {
+      userTypeId.value = GetStorage().read(BaseUrl.UserTypeID).toString();
     }
     getMarriage();
   }

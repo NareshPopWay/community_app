@@ -39,22 +39,22 @@ class FamilyMemberScreen extends GetView<FamilyMemberController> {
             ),
         ),
         actions: <Widget>[
-          IconButton(
-            onPressed: ()async{
-              await GetStorage().write(BaseUrl.LoginAuthorizetoken,"");
-              Get.back();
-            },
-            icon: const Icon(FeatherIcons.logOut,color: ThemeService.white),
-          ),
+          // IconButton(
+          //   onPressed: ()async{
+          //     await GetStorage().write(BaseUrl.LoginAuthorizetoken,"");
+          //     Get.back();
+          //   },
+          //   icon: const Icon(FeatherIcons.logOut,color: ThemeService.white),
+          // ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: controller.userTypeId.value == "2" ?FloatingActionButton(
         backgroundColor: ThemeService.primaryColor,
         onPressed: () {
          Get.toNamed(Routes.addFamilyMember);
         },
         child: Icon(MdiIcons.accountPlusOutline, color: Colors.white),
-      ),
+      ):Container(),
       body: controller.isLoading.value ?
       Center(
           child: CircularProgressIndicator(
@@ -99,7 +99,7 @@ class FamilyMemberScreen extends GetView<FamilyMemberController> {
                   MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.only(top:5.0,left:5,bottom:5),
+                      padding: const EdgeInsets.all(8.0),
                       child: Container(
                         width: Get.height * 0.18,
                         height: Get.height * 0.18,
@@ -300,7 +300,7 @@ class FamilyMemberScreen extends GetView<FamilyMemberController> {
                                 SizedBox(
                                   height: 5.0,
                                 ),
-                                Container(
+                                controller.userTypeId.value == "2" ? Container(
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
@@ -379,7 +379,7 @@ class FamilyMemberScreen extends GetView<FamilyMemberController> {
                                       ),
                                     ],
                                   ),
-                                ),
+                                ):Container(),
                               ],
                             ),
                           ),

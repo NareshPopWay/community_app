@@ -13,6 +13,7 @@ class FeedBackController extends GetxController {
 
   RxBool isLoading = false.obs;
   RxString token="".obs;
+  RxString userTypeId="".obs;
   RxList<FeedbackModel> feedBackList = <FeedbackModel>[].obs;
 
   @override
@@ -21,6 +22,10 @@ class FeedBackController extends GetxController {
     token.value = GetStorage().read(BaseUrl.Authorizetoken).toString();
     if (token.value == "") {
       token.value =   GetStorage().read(BaseUrl.Authorizetoken).toString();
+    }
+    userTypeId.value = GetStorage().read(BaseUrl.UserTypeID).toString();
+    if (userTypeId.value == "") {
+      userTypeId.value = GetStorage().read(BaseUrl.UserTypeID).toString();
     }
     getFeedBack();
   }

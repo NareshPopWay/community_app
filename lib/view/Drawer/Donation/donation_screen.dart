@@ -42,13 +42,13 @@ class DonationScreen extends GetView<DonationController> {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: controller.userTypeId.value == "1" ?FloatingActionButton(
         backgroundColor: ThemeService.primaryColor,
         onPressed: () {
           Get.toNamed(Routes.addDonation);
         },
         child: Icon(MdiIcons.notebookPlus, color: Colors.white),
-      ),
+      ):Container(),
       body: AnimationLimiter(
         child: ListView.builder(
             shrinkWrap: true,

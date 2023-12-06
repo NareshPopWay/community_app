@@ -42,13 +42,13 @@ class MarriageScreen extends GetView<MarriageController> {
             )
         ),
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton:controller.userTypeId.value == "1" ? FloatingActionButton(
         backgroundColor: ThemeService.primaryColor,
         onPressed: () {
           Get.toNamed(Routes.addMarriage);
         },
         child: Icon(MdiIcons.notebookPlus, color: Colors.white),
-      ),
+      ):Container(),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,

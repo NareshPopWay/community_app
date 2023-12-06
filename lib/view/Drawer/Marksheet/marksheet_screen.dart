@@ -41,13 +41,13 @@ class MarksheetScreen extends GetView<MarksheetController> {
         ),
 
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton:controller.userTypeId.value == "1" ? FloatingActionButton(
         backgroundColor: ThemeService.primaryColor,
         onPressed: () {
           Get.toNamed(Routes.addMarksheet);
         },
         child: Icon(MdiIcons.notebookPlus, color: Colors.white),
-      ),
+      ):Container(),
       body:
       // controller.isLoading.value
       //     ? Center(

@@ -41,13 +41,13 @@ class FeedBackScreen extends GetView<FeedBackController> {
         ),
 
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: controller.userTypeId.value == "1" ?FloatingActionButton(
         backgroundColor: ThemeService.primaryColor,
         onPressed: () {
           Get.toNamed(Routes.addFeedBack);
         },
         child: Icon(MdiIcons.notebookPlus, color: Colors.white),
-      ),
+      ):Container(),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -116,7 +116,7 @@ class FeedBackScreen extends GetView<FeedBackController> {
                     : controller.feedBackList.value.isEmpty
                     ? Center(
                   child: Text(
-                    'Job\'s Not Available',
+                    'FeedBack\'s Not Available',
                     style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.w400,

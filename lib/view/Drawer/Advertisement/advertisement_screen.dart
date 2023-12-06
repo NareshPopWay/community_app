@@ -42,13 +42,13 @@ class AdvertisementScreen extends GetView<AdvertisementController> {
         ),
 
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton:controller.userTypeId.value == "1" ? FloatingActionButton(
         backgroundColor: ThemeService.primaryColor,
         onPressed: () {
           Get.toNamed(Routes.addAdvertisement);
         },
         child: Icon(MdiIcons.notebookPlus, color: Colors.white),
-      ),
+      ):Container(),
       body:
       // controller.isLoading.value
       //     ? Center(

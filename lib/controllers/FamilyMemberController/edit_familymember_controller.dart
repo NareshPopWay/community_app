@@ -36,9 +36,9 @@ class EditFamilyMemberController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-    token.value = GetStorage().read(BaseUrl.LoginAuthorizetoken).toString();
+    token.value = GetStorage().read(BaseUrl.Authorizetoken).toString();
     if (token.value == "") {
-      token.value =   GetStorage().read(BaseUrl.LoginAuthorizetoken).toString();
+      token.value =   GetStorage().read(BaseUrl.Authorizetoken).toString();
     }
 
     if (Get.arguments != null) {

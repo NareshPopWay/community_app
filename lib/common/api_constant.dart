@@ -3,7 +3,8 @@
 class BaseUrl{
 
   static const String Authorizetoken = 'Authorizetoken';
-  static const String LoginAuthorizetoken = 'LoginAuthorizetoken';
+  // static const String LoginAuthorizetoken = 'LoginAuthorizetoken';
+  static const String UserTypeID = 'UserTypeID';
 
   // Url For Common Path Of API Starting
   static const String comman_string = "http://116.72.10.168:1205/api/";

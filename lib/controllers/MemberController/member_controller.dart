@@ -12,6 +12,7 @@ class MemberController extends GetxController {
 
   RxBool isLoading = false.obs;
   RxString token="".obs;
+  RxString userTypeId="".obs;
   RxList<MemberModel> memberList = <MemberModel>[].obs;
 
   final key = new GlobalKey<FormState>();
@@ -31,6 +32,10 @@ class MemberController extends GetxController {
     token.value = GetStorage().read(BaseUrl.Authorizetoken).toString();
     if (token.value == "") {
       token.value =   GetStorage().read(BaseUrl.Authorizetoken).toString();
+    }
+    userTypeId.value = GetStorage().read(BaseUrl.UserTypeID).toString();
+    if (userTypeId.value == "") {
+      userTypeId.value = GetStorage().read(BaseUrl.UserTypeID).toString();
     }
 
     getMember();

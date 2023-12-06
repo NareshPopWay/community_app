@@ -2,6 +2,7 @@ class Routes {
   static const root = '/';
   static const home = '/home';
   static const login = '/login';
+  static const adminLogin = '/adminLogin';
   static const addMember = '/addMember';
   static const goodNews = '/goodNews';
   static const sadNews = '/sadNews';

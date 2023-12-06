@@ -24,7 +24,7 @@ class AboutUsScreen extends GetView<AboutUsController> {
         // ),
         body: ListView(
           shrinkWrap: true,
-          physics: const BouncingScrollPhysics(parent: BouncingScrollPhysics()),
+          physics: const NeverScrollableScrollPhysics(),
           children: [
             Container(
               child: Padding(
@@ -47,15 +47,18 @@ class AboutUsScreen extends GetView<AboutUsController> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Padding(
-                          padding: EdgeInsets.all(10),
-                          child: Image(
-                              height: Get.width * 0.50,
-                              image: AssetImage(
-                                "./assets/logo.png",
-                              ),
-                              fit: BoxFit.cover //(./assets/logo.png)
-                          ),
+                        const SizedBox(
+                          height: 05,
+                        ),
+                        Image(
+                            height: Get.width * 0.20,
+                            image: AssetImage(
+                              "./assets/logo.png",
+                            ),
+                            fit: BoxFit.cover //(./assets/logo.png)
+                        ),
+                        const SizedBox(
+                          height: 05,
                         ),
                         Padding(
                           padding: EdgeInsets.all(5),

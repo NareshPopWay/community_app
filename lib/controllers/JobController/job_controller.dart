@@ -12,6 +12,7 @@ class JobController extends GetxController {
 
   RxBool isLoading = false.obs;
   RxString token="".obs;
+  RxString userTypeId="".obs;
   RxList<JobModel> jobList = <JobModel>[].obs;
 
   @override
@@ -20,6 +21,10 @@ class JobController extends GetxController {
     token.value = GetStorage().read(BaseUrl.Authorizetoken).toString();
     if (token.value == "") {
       token.value =   GetStorage().read(BaseUrl.Authorizetoken).toString();
+    }
+    userTypeId.value = GetStorage().read(BaseUrl.UserTypeID).toString();
+    if (userTypeId.value == "") {
+      userTypeId.value = GetStorage().read(BaseUrl.UserTypeID).toString();
     }
     getJobs();
   }

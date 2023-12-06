@@ -41,6 +41,7 @@ class HomeScreen extends GetView<AuthController> {
         leading: Builder(
             builder: (context) => GestureDetector(
                 onTap: () {
+                  FocusScope.of(context).unfocus();
                   Scaffold.of(context).openDrawer();
                 },
                 child: Image.asset(
@@ -49,6 +50,45 @@ class HomeScreen extends GetView<AuthController> {
                   alignment: Alignment.center,
                 ),
             )),
+        actions: [
+          // GestureDetector(
+          //   onTap: (){
+          //     controller.token.value = GetStorage().read(BaseUrl.LoginAuthorizetoken).toString();
+          //     log('Token ${controller.token.value}');
+          //     if(controller.token.value == ''){
+          //       Get.back();
+          //       Get.toNamed(Routes.login);
+          //     }
+          //     // else{
+          //     //   Get.back();
+          //     //   Get.toNamed(Routes.familyMember);
+          //     // }
+          //   },
+          //   child: Padding(
+          //     padding: const EdgeInsets.all(12),
+          //     child: Container(
+          //       width: 60,
+          //       decoration:  BoxDecoration(
+          //         borderRadius: BorderRadius.circular(10.0),
+          //         color: ThemeService.white,
+          //         // gradient: LinearGradient(
+          //         //   colors: [
+          //         //     ThemeService.primaryColor,
+          //         //     ThemeService.grayScale,
+          //         //   ],
+          //         //   begin: const FractionalOffset(0.0, 0.0),
+          //         //   end: const FractionalOffset(1.0, 0.0),
+          //         //   stops: [0.0, 1.0],
+          //         //   tileMode: TileMode.clamp,
+          //         // ),
+          //       ),
+          //       child: Center(
+          //         child: Text("Login", style: GoogleFonts.aBeeZee(fontSize: 15.0, fontWeight: FontWeight.bold, color: Colors.black),),
+          //       ),
+          //     ),
+          //   ),
+          // ),
+        ],
       ),
       drawer:  SizedBox(
         width: Get.width * 0.60,
@@ -82,17 +122,67 @@ class HomeScreen extends GetView<AuthController> {
                   child: ListView(
                     padding: EdgeInsets.fromLTRB(AppSpacings.s10, 0, AppSpacings.s10, 0),
                     children: <Widget>[
+                      if(controller.userTypeId.value == '4')
                       InkWell(
                         onTap: () {
-                          controller.token.value = GetStorage().read(BaseUrl.LoginAuthorizetoken).toString();
-                          log('Token ${controller.token.value}');
-                          if(controller.token.value == ''){
-                            Get.back();
-                            Get.toNamed(Routes.login);
-                          }else{
+                          Get.back();
+                          Get.toNamed(Routes.adminLogin);
+                        },
+                        child: ListTile(
+                          title: Text(
+                            'Admin Login',
+                            style: GoogleFonts.aBeeZee(
+                                color: Colors.white, fontWeight: FontWeight.bold),
+                          ),
+                          dense: true,
+                          leading: const Icon(
+                            FeatherIcons.logIn,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      if(controller.userTypeId.value == '4')
+                      const Divider(
+                        color: Colors.white,
+                        height: 0.9,
+                        thickness: 0.3,
+                      ),
+                      if(controller.userTypeId.value == '4')
+                      InkWell(
+                        onTap: () {
+                          Get.back();
+                          Get.toNamed(Routes.login);
+                        },
+                        child: ListTile(
+                          title: Text(
+                            'Member Login',
+                            style: GoogleFonts.aBeeZee(
+                                color: Colors.white, fontWeight: FontWeight.bold),
+                          ),
+                          dense: true,
+                          leading: const Icon(
+                            FeatherIcons.logIn,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      if(controller.userTypeId.value == '4')
+                      const Divider(
+                        color: Colors.white,
+                        height: 0.9,
+                        thickness: 0.3,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          // controller.token.value = GetStorage().read(BaseUrl.LoginAuthorizetoken).toString();
+                          // log('Token ${controller.token.value}');
+                          // if(controller.token.value == ''){
+                          //   Get.back();
+                          //   Get.toNamed(Routes.login);
+                          // }else{
                             Get.back();
                             Get.toNamed(Routes.familyMember);
-                          }
+                          // }
                         },
                         child: ListTile(
                           title: Text(
@@ -342,28 +432,34 @@ class HomeScreen extends GetView<AuthController> {
                         height: 0.9,
                         thickness: 0.3,
                       ),
-                      // InkWell(
-                      //   onTap: () {
-                      //
-                      //   },
-                      //   child: ListTile(
-                      //     title: Text(
-                      //       'About Us',
-                      //       style: GoogleFonts.aBeeZee(
-                      //           color: Colors.white, fontWeight: FontWeight.bold),
-                      //     ),
-                      //     dense: true,
-                      //     leading: const Icon(
-                      //       FeatherIcons.shield,
-                      //       color: Colors.white,
-                      //     ),
-                      //   ),
-                      // ),
-                      // const Divider(
-                      //   color: Colors.white,
-                      //   height: 0.9,
-                      //   thickness: 0.3,
-                      // ),
+                      if(controller.userTypeId.value == '1' ||controller.userTypeId.value == '2')
+                      InkWell(
+                        onTap: () async{
+                          // await GetStorage().write(BaseUrl.Authorizetoken,"null");
+                          // await GetStorage().write(BaseUrl.UserTypeID,"4");
+                          controller.getToken();
+                          controller.token.value = GetStorage().read(BaseUrl.Authorizetoken).toString();
+                          Get.back();
+                        },
+                        child: ListTile(
+                          title: Text(
+                            'Logout',
+                            style: GoogleFonts.aBeeZee(
+                                color: Colors.white, fontWeight: FontWeight.bold),
+                          ),
+                          dense: true,
+                          leading: const Icon(
+                            FeatherIcons.logOut,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      if(controller.token.value != '')
+                      const Divider(
+                        color: Colors.white,
+                        height: 0.9,
+                        thickness: 0.3,
+                      ),
                     ],
                   ),
                 ),
@@ -410,10 +506,10 @@ class HomeScreen extends GetView<AuthController> {
       body: IndexedStack(
         index: controller.selectedIndex.value,
         children:  [
+             AboutUsScreen(),
              MemberScreen(),
              CommitteeScreen(),
              NotificationScreen(),
-             AboutUsScreen()
         ],
       ),
       bottomNavigationBar: Container(
@@ -448,6 +544,10 @@ class HomeScreen extends GetView<AuthController> {
               ),
               tabs: const [
                 GButton(
+                  icon: FeatherIcons.shield,
+                  text: 'Home',
+                ),
+                GButton(
                   icon: FeatherIcons.userCheck,
                   text: 'Member',
                 ),
@@ -458,10 +558,6 @@ class HomeScreen extends GetView<AuthController> {
                 GButton(
                   icon: FeatherIcons.bell,
                   text: 'Notification',
-                ),
-                GButton(
-                  icon: FeatherIcons.shield,
-                  text: 'AboutUs',
                 ),
               ],
               selectedIndex: controller.selectedIndex.value,

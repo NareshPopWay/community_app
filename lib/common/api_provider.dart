@@ -30,6 +30,7 @@ class APIProvider {
   Future<bool> getToken() async {
     var responseJson;
     String token = "";
+    String userTypeId = "";
     try {
       log(BaseUrl.login);
       final response = await http.post(
@@ -48,8 +49,10 @@ class APIProvider {
         responseJson = json.decode(response.body);
 
         token = responseJson['token'].toString();
+        userTypeId = responseJson['userTypeID'].toString();
         int STC = 1;
-        GetStorage().write(BaseUrl.Authorizetoken, token);
+        GetStorage().write(BaseUrl.Authorizetoken,token);
+        GetStorage().write(BaseUrl.UserTypeID,userTypeId);
         GetStorage().write('STC', STC.toString());
         print(token);
         return true;
@@ -452,6 +455,7 @@ class APIProvider {
   }) async{
    var responseJson;
    String token = "";
+   String userTypeId = "";
     try{
       Map body= {
         "SamajID": 1,
@@ -480,7 +484,66 @@ class APIProvider {
       responseJson = jsonDecode(response.body);
       if (response.statusCode == 200) {
         token = responseJson['token'].toString();
-        GetStorage().write(BaseUrl.LoginAuthorizetoken, token);
+        userTypeId = responseJson['userTypeID'].toString();
+        GetStorage().write(BaseUrl.Authorizetoken, token);
+        GetStorage().write(BaseUrl.UserTypeID,userTypeId);
+        return true;
+      }else{
+        Fluttertoast.showToast(
+            msg: responseJson['message'],
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.redAccent,
+            textColor: ThemeService.white,
+            fontSize: 16.0);
+        return false;
+      }
+    }catch (e) {
+      debugPrint("Error $e");
+    }
+    return false;
+  }
+
+
+  Future<bool> adminLogin({
+    required String Username,
+    required String Password,
+  }) async{
+    var responseJson;
+    String token = "";
+    String userTypeId = "";
+    try{
+      Map body= {
+        "SamajID": 1,
+        "userTypeId": 1,
+        "Username": Username,
+        "Password": Password,
+      };
+      log(BaseUrl.login);
+      log('$body');
+      final response = await http.post(
+          Uri.parse(BaseUrl.login),
+          headers: <String, String>{
+            "Content-Type": "application/json",
+          },
+          body:jsonEncode(
+              {
+                "SamajID": 1,
+                "userTypeId": 1,
+                "Username": Username,
+                "Password": Password,
+              }
+          )
+
+      );
+      log('RESPONSE BODY: ${response.body}');
+      responseJson = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        token = responseJson['token'].toString();
+        userTypeId = responseJson['userTypeID'].toString();
+        GetStorage().write(BaseUrl.Authorizetoken, token);
+        GetStorage().write(BaseUrl.UserTypeID,userTypeId);
         return true;
       }else{
         Fluttertoast.showToast(

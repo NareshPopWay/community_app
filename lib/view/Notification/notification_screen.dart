@@ -32,13 +32,13 @@ class NotificationScreen extends GetView<NotificationController> {
       //   ),
       //   centerTitle: true,
       // ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: controller.userTypeId.value == "1" ? FloatingActionButton(
         backgroundColor: ThemeService.primaryColor,
         onPressed: () {
           Get.toNamed(Routes.addNotification);
         },
         child: Icon(MdiIcons.notebookPlus, color: Colors.white),
-      ),
+      ):Container(),
       body: AnimationLimiter(
         child: ListView.builder(
             shrinkWrap: true,

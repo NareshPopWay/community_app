@@ -57,6 +57,7 @@ import 'package:community_app/view/Notification/good_news_screen.dart';
 import 'package:community_app/view/Notification/gov_news_screen.dart';
 import 'package:community_app/view/Notification/other_news_screen.dart';
 import 'package:community_app/view/Notification/sad_news_screen.dart';
+import 'package:community_app/view/admin_login_screen.dart';
 import 'package:community_app/view/home_screen.dart';
 import 'package:community_app/view/login_screen.dart';
 import 'package:get/get.dart';
@@ -105,6 +106,11 @@ class PageRoutes {
     GetPage(
       name: Routes.login,
       page: () => LoginScreen(),
+      binding: AuthBinder(),
+    ),
+    GetPage(
+      name: Routes.adminLogin,
+      page: () => AdminLoginScreen(),
       binding: AuthBinder(),
     ),
     GetPage(
